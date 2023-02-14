@@ -7,9 +7,9 @@ import Upload from '~/pages/Upload';
 
 // PublicRoutes
 const publicRoutes = [
-    { path: '/', component: Home },
+    { path: '/', component: Home, layout: HeaderOnly},
     { path: '/destinations', component: Destinations },
-    { path: '/upload', component: Upload, layout: HeaderOnly},
+    { path: '/upload', component: Upload, },
 ];
 
 const privateRoutes = [];

@@ -7,18 +7,18 @@ function Header() {
     };
 
     return (
-        <nav className="flex justify-between items-center h-20 px-4 absolute top-0 left-0 z-10 w-full bg-transparent">
+        <nav className="flex justify-between items-center h-20 px-4 z-10 w-full bg-transparent bg-gray-300">
 
-            <h1>Beaches.</h1>
+            <h1 >FIODE</h1>
             <ul className="hidden md:flex">
                 <li>
-                    <a href="/#">Home</a>
+                    <a href="/">Home</a>
                 </li>
                 <li>
-                    <a href="/#">Destinations</a>
+                    <a href="/Destinations">Destinations</a>
                 </li>
                 <li>
-                    <a href="/#">Travel</a>
+                    <a href="/#">Festival & Event</a>
                 </li>
                 <li>
                     <a href="/#">Views</a>
@@ -97,10 +97,10 @@ function Header() {
                     </div>
                     <ul className=" mb-4">
                         <li className="border-b-2 border-b-gray-600">
-                            <a href="/#">Home</a>
+                            <a href="/">Home</a>
                         </li>
                         <li className="border-b-2 border-b-gray-600">
-                            <a href="/#">Destinations</a>
+                            <a href="/Destinations">Destinations</a>
                         </li>
                         <li className="border-b-2 border-b-gray-600">
                             <a href="/#">Travel</a>
