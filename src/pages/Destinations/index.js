@@ -1,5 +1,8 @@
+import Regions from '~/components/Layout/components/Destinations';
 function Destinations() {
-    return <h2>Destinations page</h2>;
+    return (
+        <Regions  />
+        )
 }
 
 export default Destinations; 

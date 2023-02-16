@@ -7,24 +7,25 @@ function Header() {
     };
 
     return (
-        <nav className="flex justify-between items-center h-20 px-4 z-10 w-full bg-transparent bg-gray-300">
+        <nav className="flex justify-between items-center h-15 px-4 z-10 w-full bg-gray-300">
 
-            <h1 >FIODE</h1>
-            <ul className="hidden md:flex">
+            <a href="/"> <h1>FIODE</h1></a>
+            
+            <ul className="hidden md:flex font-semibold ">
                 <li>
-                    <a href="/">Home</a>
+                    <a href="/" >Home</a>
                 </li>
                 <li>
                     <a href="/Destinations">Destinations</a>
                 </li>
                 <li>
-                    <a href="/#">Festival & Event</a>
+                    <a href="/#">Regions</a>
                 </li>
                 <li>
-                    <a href="/#">Views</a>
+                    <a href="/#">Festivals & Events</a>
                 </li>
                 <li>
-                    <a href="/#">Book</a>
+                    <a href="/#">Blogs</a>
                 </li>
             </ul>
             
@@ -95,7 +96,7 @@ function Header() {
                             />
                         </svg>
                     </div>
-                    <ul className=" mb-4">
+                    <ul className="mb-4">
                         <li className="border-b-2 border-b-gray-600">
                             <a href="/">Home</a>
                         </li>

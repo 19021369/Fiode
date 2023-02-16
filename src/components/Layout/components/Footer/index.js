@@ -1,11 +1,4 @@
 import React from 'react';
-import {
-    FaFacebook,
-    FaTwitter,
-    FaInstagram,
-    FaPinterest,
-    FaYoutube,
-} from 'react-icons/fa';
 
 function Footer() {
     return (
@@ -15,7 +8,7 @@ function Footer() {
                     <h1>FIODE</h1>
                     <div className="flex mt-4 space-x-10 sm:justify-center md:mt-0">
                         <a
-                            href="#"
+                            href="https://www.facebook.com/"
                             className="hover:text-gray-900 dark:hover:text-white"
                         >
                             <svg
@@ -33,7 +26,7 @@ function Footer() {
                             <span className="sr-only">Facebook page</span>
                         </a>
                         <a
-                            href="#"
+                            href="https://www.instagram.com/"
                             className=" hover:text-gray-900 dark:hover:text-white"
                         >
                             <svg
