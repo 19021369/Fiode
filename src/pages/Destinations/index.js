@@ -1,8 +1,11 @@
-import Regions from '~/components/Layout/components/Destinations';
+import Destination from "~/components/Layout/components/Destinations/Destination";
+
 function Destinations() {
     return (
-        <Regions  />
-        )
+        <div>
+            <Destination />
+        </div>
+    );
 }
 
-export default Destinations; 
+export default Destinations;

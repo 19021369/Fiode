@@ -1,14 +1,13 @@
 import React from 'react';
-import SelectsCard from '../Home/TravelByRegion/Select';
+import SelectsCard from './Select';
 import PaginationButton from './PaginationButton';
 import useDataFetcher from './useDataFetcher';
 import videoplayback from '~/assets/videoplayback.mp4';
 
-function Regions() {
+function Destination() {
     const { loading, pages, totalPages, currentPage, setCurrentPage } =
         useDataFetcher();
-    console.log(pages);
-    return (
+            return (
         // blocks cac tinh thanh, khi an se chuyen sang destination filter theo tinh thanh do
         <div>
             <video
@@ -46,4 +45,4 @@ function Regions() {
     );
 }
 
-export default Regions;
+export default Destination;

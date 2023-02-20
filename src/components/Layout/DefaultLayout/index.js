@@ -1,16 +1,17 @@
 import Header from "~/components/Layout/components/Header";
-import Sidebar from "./Sidebar";
 import Footer from "../components/Footer";
+import ScrollTop from '~/components/ScrollTop';
+
 
 function DefaultLayout({children}) {
     return (
         <div>
             <Header />
             <div>
-                <Sidebar />
                 <div className="content">{children}</div>
             </div>
             <Footer />
+            <ScrollTop />
         </div>
         
     );

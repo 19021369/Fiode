@@ -26,35 +26,35 @@ function TopDestinations() {
                 
                     <img
                         onMouseOver={(e) => handleShowInfo(e)}
-                        className="w-full h-full object-cover col-span-2 md:col-span-3 row-span-2"
+                        className="w-full h-full object-cover col-span-2 md:col-span-3 row-span-2  filter brightness-100 hover:brightness-50"
                         src={HaGiang}
                         alt="Hà Giang"
                     />
                 
                     <img
                         onMouseOver={(e) => handleShowInfo(e)}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover  filter brightness-100 hover:brightness-50"
                         src={HaLong}
                         alt="Hạ Long"
                     />
                 
                     <img
                         onMouseOver={(e) => handleShowInfo(e)}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover  filter brightness-100 hover:brightness-50"
                         src={HaNoi}
                         alt="Hà Nội"
                     />
                 
                     <img
                         onMouseOver={(e) => handleShowInfo(e)}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover  filter brightness-100 hover:brightness-50"
                         src={HoiAn}
                         alt="Hội An"
                     />
                 
                     <img
                         onMouseOver={(e) => handleShowInfo(e)}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover  filter brightness-100 hover:brightness-50"
                         src={PhuQuoc}
                         alt="Phú Quốc"
                     />

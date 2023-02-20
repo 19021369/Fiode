@@ -16,21 +16,21 @@ function Header() {
                     <a href="/" >Home</a>
                 </li>
                 <li>
-                    <a href="/Destinations">Destinations</a>
+                    <a href="/destinations">Destinations</a>
                 </li>
                 <li>
-                    <a href="/#">Regions</a>
+                    <a href="/regions">Regions</a>
                 </li>
                 <li>
-                    <a href="/#">Festivals & Events</a>
+                    <a href="/festivals&events">Festivals & Events</a>
                 </li>
                 <li>
-                    <a href="/#">Blogs</a>
+                    <a href="/blogs">Blogs</a>
                 </li>
             </ul>
             
             <div className="hidden md:flex">
-                <svg
+                <a><svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -43,7 +43,8 @@ function Header() {
                         strokeLinejoin="round"
                         d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
                     />
-                </svg>
+                </svg></a>
+                <a href='/login'>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -58,6 +59,7 @@ function Header() {
                         d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
                     />
                 </svg>
+                </a>
             </div>
             {!navIsShown && (
                 <svg
@@ -101,16 +103,16 @@ function Header() {
                             <a href="/">Home</a>
                         </li>
                         <li className="border-b-2 border-b-gray-600">
-                            <a href="/Destinations">Destinations</a>
+                            <a href="/destinations">Destinations</a>
                         </li>
                         <li className="border-b-2 border-b-gray-600">
-                            <a href="/#">Travel</a>
+                            <a href="/regions">Regions</a>
                         </li>
                         <li className="border-b-2 border-b-gray-600">
-                            <a href="/#">Views</a>
+                            <a href="/festivals&events">Festivals & Events</a>
                         </li>
                         <li className="border-b-2 border-b-gray-600">
-                            <a href="/#">Book</a>
+                            <a href="/blogs">Blogs</a>
                         </li>
                     </ul>
                     <button className="w-full mb-4 btn">Search</button>
