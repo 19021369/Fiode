@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import HaGiang from '~/assets/HaGiang.jpg';
 import HaLong from '~/assets/HaLong.jpg';
 import HaNoi from '~/assets/HaNoi.jpg';
@@ -7,16 +7,7 @@ import PhuQuoc from '~/assets/PhuQuoc.jpg';
 // import SaiGon from '~/assets/SaGon.jpg';
 
 function TopDestinations() {
-    const [isHovering, setIsHovering] = useState(false);
-    // const [LocationName, setLocationName] = useState('');
 
-    const handleShowInfo = (e) => {
-        setIsHovering(true);
-    };
-
-    // useEffect((e) => {
-
-    // },[isHovering]);
     return (
         // dua ra 1 so dia diem noi bat gan da
         <div className="TopDestinations max-w-[1240px] mx-auto pt-16 px-4 text-center">
@@ -25,36 +16,31 @@ function TopDestinations() {
             <div className="grid grid-rows-none md:grid-cols-5 py-4 gap-2 md:gap-4">
                 
                     <img
-                        onMouseOver={(e) => handleShowInfo(e)}
                         className="w-full h-full object-cover col-span-2 md:col-span-3 row-span-2  filter brightness-100 hover:brightness-50"
                         src={HaGiang}
                         alt="Hà Giang"
                     />
                 
                     <img
-                        onMouseOver={(e) => handleShowInfo(e)}
-                        className="w-full h-full object-cover  filter brightness-100 hover:brightness-50"
+                        className="w-full h-full object-cover filter brightness-100 hover:brightness-50"
                         src={HaLong}
                         alt="Hạ Long"
                     />
                 
                     <img
-                        onMouseOver={(e) => handleShowInfo(e)}
-                        className="w-full h-full object-cover  filter brightness-100 hover:brightness-50"
+                        className="w-full h-full object-cover filter brightness-100 hover:brightness-50"
                         src={HaNoi}
                         alt="Hà Nội"
                     />
                 
                     <img
-                        onMouseOver={(e) => handleShowInfo(e)}
-                        className="w-full h-full object-cover  filter brightness-100 hover:brightness-50"
+                        className="w-full h-full object-cover filter brightness-100 hover:brightness-50"
                         src={HoiAn}
                         alt="Hội An"
                     />
                 
                     <img
-                        onMouseOver={(e) => handleShowInfo(e)}
-                        className="w-full h-full object-cover  filter brightness-100 hover:brightness-50"
+                        className="w-full h-full object-cover filter brightness-100 hover:brightness-50"
                         src={PhuQuoc}
                         alt="Phú Quốc"
                     />

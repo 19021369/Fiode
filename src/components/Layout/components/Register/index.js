@@ -5,10 +5,15 @@ function RegistrationPage() {
         <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
             <div>
                 <a href="/">
-                    <h3 className="text-4xl font-bold text-purple-600">FIODE</h3>
+                    <h3 className="text-4xl font-bold text-purple-700">
+                        FIODE
+                    </h3>
                 </a>
             </div>
             <div className="w-full px-6 py-8 mt-6 overflow-hidden bg-white shadow-2xl sm:max-w-md sm:rounded-lg">
+                <h1 className="text-3xl font-semibold text-center text-purple-700">
+                    Sign up
+                </h1>
                 <form>
                     <div>
                         <label
@@ -21,7 +26,7 @@ function RegistrationPage() {
                             <input
                                 type="text"
                                 name="name"
-                                className="border-2 block w-full mt-1 border-gray-500 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                             />
                         </div>
                     </div>
@@ -36,7 +41,7 @@ function RegistrationPage() {
                             <input
                                 type="email"
                                 name="email"
-                                className="border-2 block w-full mt-1 border-gray-500 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                             />
                         </div>
                     </div>
@@ -51,7 +56,7 @@ function RegistrationPage() {
                             <input
                                 type="password"
                                 name="password"
-                                className="border-2 block w-full mt-1 border-gray-500 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                             />
                         </div>
                     </div>
@@ -66,7 +71,7 @@ function RegistrationPage() {
                             <input
                                 type="password"
                                 name="password_confirmation"
-                                className="border-2 block w-full mt-1 border-gray-500 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                             />
                         </div>
                     </div>
@@ -77,13 +82,14 @@ function RegistrationPage() {
                         >
                             Already registered?
                         </a>
-                        <a href='/'><button
-                            type="submit"
-                            className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-purple-600 border border-transparent rounded-md active:bg-purple-900 false"
-                        >
-                            Register
-                        </button></a>
-                        
+                        <a href="/">
+                            <button
+                                type="submit"
+                                className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-purple-600 border border-transparent rounded-md active:bg-purple-900 false"
+                            >
+                                Register
+                            </button>
+                        </a>
                     </div>
                 </form>
             </div>

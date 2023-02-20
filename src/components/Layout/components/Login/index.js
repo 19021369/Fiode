@@ -2,8 +2,13 @@ import React from 'react';
 
 function LoginPage() {
     return (
-        <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
-            <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
+        <div className="flex flex-col relative items-center pt-6 sm:justify-center h-screen overflow-hidden">
+            <div>
+                <a href="/">
+                    <h3 className="text-4xl font-bold text-purple-700">FIODE</h3>
+                </a>
+            </div>
+            <div className="w-full px-6 py-8 mt-6 overflow-hidden bg-white shadow-2xl sm:max-w-md sm:rounded-lg">
                 <h1 className="text-3xl font-semibold text-center text-purple-700">
                     Sign in
                 </h1>
@@ -33,7 +38,7 @@ function LoginPage() {
                         />
                     </div>
                     <a
-                        href="#"
+                        href="/"
                         className="text-xs text-purple-600 hover:underline"
                     >
                         Forget Password?
