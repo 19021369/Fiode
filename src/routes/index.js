@@ -6,6 +6,7 @@ import Regions from '~/pages/Regions';
 import FestivalsNEvents from '~/pages/FestivalsnEvents';
 import Login from '~/pages/Login';
 import Register from '~/pages/Register';
+import SearchResults from '~/pages/SearchResults';
 // PublicRoutes
 const publicRoutes = [
     { path: '/', component: Home },
@@ -18,6 +19,8 @@ const publicRoutes = [
     },
     { path: '/login', component: Login },
     { path: '/register', component: Register },
+    {path: '/searchresults', component: SearchResults}
+
 ];
 
 const privateRoutes = [];
