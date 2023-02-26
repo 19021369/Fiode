@@ -13,11 +13,7 @@ const publicRoutes = [
     { path: '/', component: Home },
     { path: '/destinations', component: Destinations },
     { path: '/regions', component: Regions },
-    {
-        path: '/festivals&events',
-        component: FestivalsNEvents,
-        layout: HeaderOnly,
-    },
+    { path: '/festivals&events',component: FestivalsNEvents },
     { path: '/login', component: Login },
     { path: '/register', component: Register },
     { path: '/searchresults', component: SearchResults},
