@@ -5,7 +5,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 // import required modules
@@ -82,7 +81,7 @@ function DestinationPage() {
                     </SwiperSlide>
                     <SwiperSlide>
                         <img
-                            className="object-fill w-full h-96"
+                            className="object-fill w-full "
                             src="https://cdn.pixabay.com/photo/2022/07/24/17/55/wind-energy-7342177__340.jpg"
                             alt="image slide 2"
                         />
