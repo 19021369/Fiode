@@ -14,7 +14,7 @@ function SelectsCard(props) {
                     {props.text}
                 </p>
                 <a
-                    href="/"
+                    href="/destination"
                     className="left-4 bottom-4 text-xl font-bold text-yellow-400 absolute hover:text-white"
                 >
                     READ MORE +
