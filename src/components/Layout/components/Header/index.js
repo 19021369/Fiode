@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 
 function Header() {
     const [navIsShown, setnavIsShown] = useState(false);
+    const [searchArea, setSearchArea] = useState('');
 
     const toggleNavIsShown = () => {
         setnavIsShown((navIsShown) => !navIsShown);
     };
-    const [searchArea, setSearchArea] = useState('')
+
     return (
         <nav className="flex justify-between items-center h-15 px-4 z-10 w-full bg-gray-300">
             <a href="/">
@@ -34,7 +35,7 @@ function Header() {
             <div className="hidden md:flex">
                 <form className="max-w-sm px-4">
                     <div className="relative">
-                        <a href='/searchresults'>
+                        <a href={`/searchresults/${searchArea}`}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="absolute top-0 bottom-0 w-6 h-6 my-auto text-gray-400 left-3"
@@ -53,7 +54,7 @@ function Header() {
 
                         <input
                             value={searchArea}
-                            onChange={e => setSearchArea(e.target.value)}
+                            onChange={(e) => setSearchArea(e.target.value)}
                             type="text"
                             placeholder="Search"
                             className="w-full py-2 pl-12 pr-4 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"

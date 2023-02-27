@@ -1,6 +1,8 @@
 import React from 'react';
 
+
 function SelectsCard(props) {
+
     return (
         <div className="relative">
             <img
@@ -14,7 +16,7 @@ function SelectsCard(props) {
                     {props.text}
                 </p>
                 <a
-                    href="/destination"
+                    href={`/destinations/${props.text}`}
                     className="left-4 bottom-4 text-xl font-bold text-yellow-400 absolute hover:text-white"
                 >
                     READ MORE +

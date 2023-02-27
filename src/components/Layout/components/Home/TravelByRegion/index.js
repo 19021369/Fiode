@@ -12,7 +12,8 @@ function TravelByRegion() {
     return (
         // blocks cac tinh thanh, khi an se chuyen sang destination filter theo tinh thanh do
         <div className="max-w-[1240px] mx-auto pt-16 px-4 text-center">
-            <h1>Travel by region</h1>
+            <a href='/regions'><h1>Travel by region</h1></a>
+            
             <p className="py-4">Some beautifull regions</p>
             <div className=" grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <SelectsCard bg={HaGiang} text="Hà Giang" />

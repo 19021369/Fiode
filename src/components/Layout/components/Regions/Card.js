@@ -3,7 +3,7 @@ import React from 'react';
 function Card(props) {
     return (
         <div className="card border-2 rounded-2xl h-full hover:shadow-xl">
-            <a href={props.link}>
+            <a href={`/regions/${props.name}`}>
             <div
                 className="intro h-72 relative"
                 style={{
@@ -21,7 +21,7 @@ function Card(props) {
                     The only Brazilian capital through which the Equator passes,
                     Macapá is not only the capital of Amapá state, but also t...
                 </p>
-                <a href={props.link} className='text-yellow-500 font-bold'>Read more</a>
+                <a href={`/regions/${props.name}`} className='text-yellow-500 font-bold'>Read more</a>
             </div>
         </div>
     );

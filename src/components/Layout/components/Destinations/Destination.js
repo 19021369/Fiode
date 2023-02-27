@@ -5,8 +5,10 @@ import useDataFetcher from './useDataFetcher';
 import videoplayback from '~/assets/videoplayback.mp4';
 
 function Destination() {
+
     const { loading, pages, totalPages, currentPage, setCurrentPage } =
         useDataFetcher();
+
             return (
         // blocks cac tinh thanh, khi an se chuyen sang destination filter theo tinh thanh do
         <div>
