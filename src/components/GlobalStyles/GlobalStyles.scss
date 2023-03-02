@@ -1,1 +1,6 @@
 @import 'normalize.css';
+
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+  }

@@ -1,11 +1,10 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 
-function FestivalNEvent() {
-
+function EventPage() {
     const [month, setMonth] = useState('');
     console.log(month);
     return (
-        <div>  
+        <div>
             {/* bgimg */}
             <div className="relative h-full w-full">
                 <img
@@ -25,8 +24,8 @@ function FestivalNEvent() {
                             hover:before:w-full hover:before:left-0 hover:before:bg-red-800 active:bg-red-800"
                     >
                         <button
-                        value={'jan'}
-                            onClick={e => setMonth(e.target.value)}
+                            value={'jan'}
+                            onClick={(e) => setMonth(e.target.value)}
                             className="p-none border-none rounded-none bg-opacity-0 h-full w-full flex justify-center items-center absolute"
                         >
                             Jan
@@ -40,7 +39,7 @@ function FestivalNEvent() {
                     >
                         <button
                             value={'feb'}
-                            onClick={e => setMonth(e.target.value)}
+                            onClick={(e) => setMonth(e.target.value)}
                             className="p-none border-none rounded-none bg-opacity-0 h-full w-full flex justify-center items-center absolute"
                         >
                             Feb
@@ -54,7 +53,7 @@ function FestivalNEvent() {
                     >
                         <button
                             value={'mar'}
-                            onClick={e => setMonth(e.target.value)}
+                            onClick={(e) => setMonth(e.target.value)}
                             className="p-none border-none rounded-none bg-opacity-0 h-full w-full flex justify-center items-center absolute"
                         >
                             Mar
@@ -68,7 +67,7 @@ function FestivalNEvent() {
                     >
                         <button
                             value={'apr'}
-                            onClick={e => setMonth(e.target.value)}
+                            onClick={(e) => setMonth(e.target.value)}
                             className="p-none border-none rounded-none bg-opacity-0 h-full w-full flex justify-center items-center absolute"
                         >
                             Apr
@@ -82,7 +81,7 @@ function FestivalNEvent() {
                     >
                         <button
                             value={'may'}
-                            onClick={e => setMonth(e.target.value)}
+                            onClick={(e) => setMonth(e.target.value)}
                             className="p-none border-none rounded-none bg-opacity-0 h-full w-full flex justify-center items-center absolute"
                         >
                             May
@@ -96,7 +95,7 @@ function FestivalNEvent() {
                     >
                         <button
                             value={'jun'}
-                            onClick={e => setMonth(e.target.value)}
+                            onClick={(e) => setMonth(e.target.value)}
                             className="p-none border-none rounded-none bg-opacity-0 h-full w-full flex justify-center items-center absolute"
                         >
                             Jun
@@ -110,7 +109,7 @@ function FestivalNEvent() {
                     >
                         <button
                             value={'jul'}
-                            onClick={e => setMonth(e.target.value)}
+                            onClick={(e) => setMonth(e.target.value)}
                             className="p-none border-none rounded-none bg-opacity-0 h-full w-full flex justify-center items-center absolute"
                         >
                             Jul
@@ -124,7 +123,7 @@ function FestivalNEvent() {
                     >
                         <button
                             value={'aug'}
-                            onClick={e => setMonth(e.target.value)}
+                            onClick={(e) => setMonth(e.target.value)}
                             className="p-none border-none rounded-none bg-opacity-0 h-full w-full flex justify-center items-center absolute"
                         >
                             Aug
@@ -138,7 +137,7 @@ function FestivalNEvent() {
                     >
                         <button
                             value={'sep'}
-                            onClick={e => setMonth(e.target.value)}
+                            onClick={(e) => setMonth(e.target.value)}
                             className="p-none border-none rounded-none bg-opacity-0 h-full w-full flex justify-center items-center absolute"
                         >
                             Sep
@@ -152,7 +151,7 @@ function FestivalNEvent() {
                     >
                         <button
                             value={'oct'}
-                            onClick={e => setMonth(e.target.value)}
+                            onClick={(e) => setMonth(e.target.value)}
                             className="p-none border-none rounded-none bg-opacity-0 h-full w-full flex justify-center items-center absolute"
                         >
                             Oct
@@ -166,7 +165,7 @@ function FestivalNEvent() {
                     >
                         <button
                             value={'nov'}
-                            onClick={e => setMonth(e.target.value)}
+                            onClick={(e) => setMonth(e.target.value)}
                             className="p-none border-none rounded-none bg-opacity-0 h-full w-full flex justify-center items-center absolute"
                         >
                             Nov
@@ -180,7 +179,7 @@ function FestivalNEvent() {
                     >
                         <button
                             value={'dec'}
-                            onClick={e => setMonth(e.target.value)}
+                            onClick={(e) => setMonth(e.target.value)}
                             className="p-none border-none rounded-none bg-opacity-0 h-full w-full flex justify-center items-center absolute"
                         >
                             Dec
@@ -188,70 +187,46 @@ function FestivalNEvent() {
                     </li>
                 </ul>
             </div>
-
-            {/* Content */}
-            <div className="max-w-[1240px] mx-auto px-4 pt-16 items-center justify-center grid grid-cols-2 gap-10">
-                <div className="wrap-event grid grid-cols-2">
-                    <div className="wrap-thumb">
-                        <img
-                            alt='thumb'
-                            src="https://vietnam.travel/sites/default/files/styles/large/public/2022-12/H%E1%BB%99i%20Lim%20B%E1%BA%AFc%20Ninh_resize_0.jpeg?itok=CBSf1AwL"
-                            className="thumb"
-                        ></img>
-                    </div>
-                    <div className="info bg-black text-white p-5">
-                        <h5 className="title text-xl font-bold pb-4">Lim Festival</h5>
-                        <span className="date text-sm font-thin pb-2">01 Feb 2023 - 04 Feb 2023 </span>
-                        <p className="desc text-sm truncate">
-                            Held from 08:00 February 01 to 08:00 February 04 in
-                            the northern city of Bac Ninh, the Lim Festival is a
-                            huge 3-day celebration of ethnic Vietnamese culture,
-                            from brightly colored costumes and art to Quan Ho, a
-                            distinct form of folk singing recognized by
-                            UNESCO.&nbsp; Each year the festival
-                        </p>
-                        <a
-                            href="/festivals&events/lim-festival"
-                            className="link text-yellow-400"
-                        >
-                            read more
-                        </a>
-                    </div>
+            <div className="max-w-[1240px] mx-auto px-4 pt-16 items-center justify-center flex">
+                <div className="wrap-thumb w-fit">
+                    <img
+                        alt="thumb"
+                        src="https://vietnam.travel/sites/default/files/styles/large/public/2022-12/H%E1%BB%99i%20Lim%20B%E1%BA%AFc%20Ninh_resize_0.jpeg?itok=CBSf1AwL"
+                        className="thumb"
+                    ></img>
                 </div>
-                
-                <div className="wrap-event grid grid-cols-2">
-                    <div className="wrap-thumb">
-                        <img
-                            src="https://vietnam.travel/sites/default/files/styles/large/public/2022-12/terrain-valentines-day-bouquet-tout-c5fcf171bdca428e98f1d2ea68813ad4_0.jpeg?itok=jp2ZjHrT"
-                            className="thumb"
-                            alt='/thumb'
-                        >
-                        </img>
-                    </div>
 
-                    <div className="info bg-black text-white p-5">
-                        <h5 className="title text-xl font-bold pb-4">Valentine's Day</h5>
-                        <span className="date text-sm font-thin pb-2">14 Feb 2023 - 14 Feb 2023 </span>
-                        <p className="desc  text-sm truncate">
-                            Valentine's Day is the most popular Western-derived
-                            holiday in Vietnam, celebrating romance with
-                            greeting cards, red roses, chocolate, and other
-                            special gifts.&nbsp; The mixture of Eastern and
-                            Western cultures has created a unique Valentine's
-                            day in Vietnam, which is loved and participated in
-                            by
-                        </p>
-                        <a
-                            href="/festivals&events/valentine-day"
-                            className="link text-yellow-400"
-                        >
-                            read more
-                        </a>
-                    </div>
+                <div
+                    className="info bg-black text-white p-5 w-1/2"
+                    style={{ height: '480px' }}
+                >
+                    <a href="/festivals&events" className="link-back text-yellow-400">
+                        <span>Back to February Events</span>
+                    </a>
+                    <h1 className="title font-bold pb-8">LIM FESTIVAL</h1>
+                    <span className="date text-sm font-thin py-8">
+                        01 Feb 2023 - 04 Feb 2023{' '}
+                    </span>
+                    <p className="desc text-sm py-8">
+                        Held from 08:00 February 01 to 08:00 February 04 in the
+                        northern city of Bac Ninh, the Lim Festival is a huge
+                        3-day celebration of ethnic Vietnamese culture, from
+                        brightly colored costumes and art to Quan Ho, a distinct
+                        form of folk singing recognized by UNESCO. Each year the
+                        festival attracts visitors from all over the country to
+                        Bac Ninh – considered the heart of the cultural region
+                        of Kinh Bac, which now spans several provinces,
+                        including parts of Hanoi. The city is famous for its
+                        ancient, spiritually significant Buddhist pagodas,
+                        including the Lim pagoda that gives the festival its
+                        name. Apart from Quan ho folk songs, there are also many
+                        Vietnamese traditional games to join including rice
+                        cooking, human chess, wrestling and bamboo swings.
+                    </p>
                 </div>
             </div>
         </div>
     );
 }
 
-export default FestivalNEvent;
+export default EventPage;

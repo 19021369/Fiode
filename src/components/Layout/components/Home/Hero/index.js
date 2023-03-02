@@ -8,7 +8,7 @@ function Hero() {
     const [searchResult, setSearchResult] = useState('')
 
     return (
-        <div className="Hero w-full h-screen relative">
+        <div className="Hero w-full h-screen relative z-0">
             <video
                 className="w-full h-full object-cover"
                 src={thuyenVid}
