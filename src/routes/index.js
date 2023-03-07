@@ -9,6 +9,7 @@ import SearchResults from '~/pages/SearchResults';
 import Destination from '~/pages/Destination';
 import Region from '~/pages/Region';
 import Event from '~/pages/Event';
+import Profile from '~/pages/Profile';
 
 // PublicRoutes
 const publicRoutes = [
@@ -23,6 +24,7 @@ const publicRoutes = [
     { path: '/destinations/:destinationName', component: Destination},
     { path: '/regions/:regionName', component: Region},
     { path: '/festivals&events/:eventName', component: Event},
+    { path: '/profile', component: Profile},
     
 
 ]
