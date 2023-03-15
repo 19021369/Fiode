@@ -30,8 +30,8 @@ function Destination() {
                             {pages.map((page) => (
                                 <SelectsCard
                                     key={page.id}
-                                    bg={page.avatar_url}
-                                    text={page.login}
+                                    bg={page.imageurl}
+                                    name={page.name}
                                 />
                             ))}
                         </div>

@@ -7,7 +7,7 @@ function SelectsCard(props) {
         <div className="relative">
             <img
                 className="w-full h-full"
-                src={props.bg}
+                src={props.imageurl}
                 alt="/"
             />
 
@@ -16,7 +16,7 @@ function SelectsCard(props) {
                     {props.text}
                 </p>
                 <a
-                    href={`/destinations/${props.text}`}
+                    href={`/destinations/${props.name}`}
                     className="left-4 bottom-4 text-xl font-bold text-yellow-400 absolute hover:text-white"
                 >
                     READ MORE +

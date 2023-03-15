@@ -1,6 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { alert } from '@material-tailwind/react';
 
 function RegistrationPage() {
+    const [fname, setFname] = useState('');
+    const [lname, setLname] = useState('');
+    const [uname, setUname] = useState('');
+    const [email, setEmail] = useState('');
+    const [password1, setPassword1] = useState('');
+    const [password2, setPassword2] = useState('');
+
+    const Signup = async () => {
+        if (password1 !== password2) {
+            alert('Mat khau khong khop!');
+        } else {
+            var data = JSON.stringify({
+                firstName: fname,
+                lastName: lname,
+                username: uname,
+                password: password1,
+                email: email,
+            });
+            var config = {
+                method: 'post',
+                url: 'localhost:8080/api/auth/signup',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                data: data,
+            };
+        }
+        await axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+
     return (
         <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
             <div>
@@ -17,15 +55,53 @@ function RegistrationPage() {
                 <form>
                     <div>
                         <label
-                            htmlFor="name"
+                            htmlFor="fname"
                             className="block text-sm font-medium text-gray-700 undefined"
                         >
-                            Name
+                            First name
                         </label>
                         <div className="flex flex-col items-start">
                             <input
+                                onChange={(e) => setFname(e.target.value)}
+                                value={fname}
                                 type="text"
-                                name="name"
+                                name="fname"
+                                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="mt-4">
+                        <label
+                            htmlFor="lname"
+                            className="block text-sm font-medium text-gray-700 undefined"
+                        >
+                            Last name
+                        </label>
+                        <div className="flex flex-col items-start">
+                            <input
+                                onChange={(e) => setLname(e.target.value)}
+                                value={lname}
+                                type="text"
+                                name="lname"
+                                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="mt-4">
+                        <label
+                            htmlFor="uname"
+                            className="block text-sm font-medium text-gray-700 undefined"
+                        >
+                            Username
+                        </label>
+                        <div className="flex flex-col items-start">
+                            <input
+                                onChange={(e) => setUname(e.target.value)}
+                                value={uname}
+                                type="text"
+                                name="uname"
                                 className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                             />
                         </div>
@@ -39,6 +115,8 @@ function RegistrationPage() {
                         </label>
                         <div className="flex flex-col items-start">
                             <input
+                                onChange={(e) => setEmail(e.target.value)}
+                                value={email}
                                 type="email"
                                 name="email"
                                 className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -54,8 +132,10 @@ function RegistrationPage() {
                         </label>
                         <div className="flex flex-col items-start">
                             <input
+                                onChange={(e) => setPassword1(e.target.value)}
+                                value={password1}
                                 type="password"
-                                name="password"
+                                name="password1"
                                 className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                             />
                         </div>
@@ -69,6 +149,8 @@ function RegistrationPage() {
                         </label>
                         <div className="flex flex-col items-start">
                             <input
+                                onChange={(e) => setPassword2(e.target.value)}
+                                value={password2}
                                 type="password"
                                 name="password_confirmation"
                                 className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -82,14 +164,14 @@ function RegistrationPage() {
                         >
                             Already registered?
                         </a>
-                        <a href="/">
-                            <button
-                                type="submit"
-                                className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-purple-600 border border-transparent rounded-md active:bg-purple-900 false"
-                            >
-                                Register
-                            </button>
-                        </a>
+
+                        <button
+                            onClick={Signup}
+                            // type="submit"
+                            className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-purple-600 border border-transparent rounded-md active:bg-purple-900 false"
+                        >
+                            Register
+                        </button>
                     </div>
                 </form>
             </div>

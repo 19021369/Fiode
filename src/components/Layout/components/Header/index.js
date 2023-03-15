@@ -6,7 +6,7 @@ function Header() {
     const [searchArea, setSearchArea] = useState('');
 
     return (
-        <nav className="flex justify-between items-center h-15 px-4 z-10 w-full bg-gray-300 z-0">
+        <nav className="flex justify-between items-center h-15 px-4 z-10 w-full bg-gray-300">
             <a href="/">
                 <h1 className="w-80">FIODE</h1>
             </a>

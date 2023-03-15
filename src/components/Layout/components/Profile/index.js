@@ -1,14 +1,30 @@
 import { Avatar, Typography, Button } from '@material-tailwind/react';
 import bgprofile from '~/assets/background-1.jpg';
 import avatar from '~/assets/team-2.jpg';
-
+import axios from 'axios';
 import {
     MapPinIcon,
     BriefcaseIcon,
     BuildingLibraryIcon,
 } from '@heroicons/react/24/solid';
-
+import { useState } from 'react';
 function ProfilePage() {
+    const [user, setUser] = useState([])
+    const [userName, setUserName] = useState('')
+    var config = {
+        method: 'get',
+        url: 'http://localhost:8080/api/users/mrslonely/profile',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    };
+    axios(config)
+      .then(res => {
+        setUser(res.data)
+        var username = user.firstName + ' ' + user.lastName
+        setUserName(username)
+      })
+      .catch(error => console.log(error));
     return (
         <>
             <section className="relative block h-[50vh]">
@@ -97,7 +113,7 @@ function ProfilePage() {
                                     color="blue-gray"
                                     className="mb-2"
                                 >
-                                    Jenna Stones
+                                   {userName}
                                 </Typography>
                                 <div className="mb-16 flex items-center justify-center gap-2">
                                     <MapPinIcon className="-mt-px h-4 w-4 text-blue-gray-700" />

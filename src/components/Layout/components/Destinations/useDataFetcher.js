@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState,useEffect } from 'react';
 
 function useDataFetcher() {
-    const API_URL = 'https://api.github.com/users/fabpot/followers?per_page=12'
+    const API_URL = 'http://localhost:8080/api/destinations'
     const totalPages = 300
     const [loading, setLoading] = useState(true)
     const [pages, setPages] = useState([])
@@ -10,9 +10,24 @@ function useDataFetcher() {
     useEffect(() => {
         const fetchData = async() => {
             const page = Math.min(currentPage+1, totalPages)
-            const result = await axios.get(`${API_URL}&page=${page}`)
-            setPages(result.data)
-            setLoading(false)
+
+            var config = {
+                method: 'get',
+                url: `${API_URL}`,
+                // url: `${API_URL}&page=${page}`,
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            };
+    
+            await axios(config)
+                .then(function (response) {
+                    setPages(response.data)
+                    setLoading(false)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         };
         fetchData()
     },[currentPage])

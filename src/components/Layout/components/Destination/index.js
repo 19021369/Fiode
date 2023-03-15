@@ -6,13 +6,41 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
-
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper';
 
 function DestinationPage() {
     const { destinationName } = useParams();
-    const key = 'yourKey';
+    const [destination, setDestination] = useState('');
+
+    useEffect(() => {
+        const fetchData = async() => {
+        // var data = JSON.stringify({
+        //     name: destinationName
+        // });
+
+        var config = {
+            method: 'get',
+            url: `http://localhost:8080/api/destinations?name=${destinationName}`,
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        };
+
+        await axios(config)
+            .then(function (response) {
+                setDestination(response.data)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        };
+        fetchData()
+    },[destinationName])
+
+    console.log(destination);
     return (
         <div>
             <div className="relative">
@@ -24,38 +52,22 @@ function DestinationPage() {
                         height: '500px',
                     }}
                 ></div>
+                
                 <h1 className="pl-48 text-9xl text-white absolute top-1/2 -translate-y-1/2">
-                    {destinationName}
+                        {/* {destination[0].name} */}
                 </h1>
             </div>
             <div className="max-w-[1240px] mx-auto pt-16 px-4">
                 <div className="grid grid-cols-2 gap-7">
                     <div>
+                        <p className="pt-16">
+                            {/* {destination[0].createdAt} */}
+                        </p>
                         <strong>
-                            The white-sand beaches on the banks of the Tapajós,
-                            a river with fresh, warm, blue-green waters, are one
-                            of the main attractions of this charming destination
-                            surrounded by breathtaking nature.
+                            {/* {destination[0].introduce} */}
                         </strong>
                         <p className="pt-16">
-                            Alter do Chão was described as one of the best beach
-                            destinations in Brazil by English newspaper The
-                            Guardian. The village is situated just 38 km from
-                            the city of Santarém, in the middle of the Amazon.
-                            Located in a beautiful setting, it is the ideal spot
-                            for visitors to enjoy one of the most incredible
-                            regions in Brazil. The local beaches appear during
-                            the Amazonian summer, which occurs between the
-                            months of August and December. During this period,
-                            hotels and inns fill up with guests. In addition to
-                            enjoying the beaches, visitors are able to hike in
-                            the forest, go rappelling, go canyoning, try sports
-                            fishing, swim with river dolphins, visit local
-                            communities, and fill their suitcases with local
-                            handicrafts. During the month of September, visitors
-                            get to experience the traditional Sairé Festival,
-                            which combines religious, mythological, and cultural
-                            elements.
+                            {/* {destination[0].content} */}
                         </p>
                     </div>
                     <div>api maps</div>
