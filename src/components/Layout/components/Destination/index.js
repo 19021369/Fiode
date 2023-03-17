@@ -1,8 +1,7 @@
 import React from 'react';
-import searchResults from '~/assets/searchresult.jpg';
 import { useParams } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
+// import toSlug from '../ConvertVnese';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -12,15 +11,14 @@ import { useState, useEffect } from 'react';
 import { Autoplay, Pagination, Navigation } from 'swiper';
 
 function DestinationPage() {
-    const { destinationName } = useParams();
-    const [destination, setDestination] = useState('');
 
+    const { destinationName } = useParams('');
+    const [destination, setDestination] = useState('Test');
+    const [images, setImages] = useState('');
+
+//  lay destination
     useEffect(() => {
         const fetchData = async() => {
-        // var data = JSON.stringify({
-        //     name: destinationName
-        // });
-
         var config = {
             method: 'get',
             url: `http://localhost:8080/api/destinations?name=${destinationName}`,
@@ -32,45 +30,78 @@ function DestinationPage() {
         await axios(config)
             .then(function (response) {
                 setDestination(response.data)
+                setImages(toSlug(destination[0]?.name))
+                console.log(destination[0]?.name);
+                console.log(images);
             })
             .catch(function (error) {
                 console.log(error);
             });
-        };
+        }
         fetchData()
-    },[destinationName])
+    },[])
 
-    console.log(destination);
+    
+function toSlug(str) {
+	// Chuyển hết sang chữ thường
+    if(str !== undefined) {
+        str = str.toString().toLowerCase();     
+     
+        // xóa dấu
+        str = str
+            .normalize('NFD') // chuyển chuỗi sang unicode tổ hợp
+            .replace(/[\u0300-\u036f]/g, ''); // xóa các ký tự dấu sau khi tách tổ hợp
+     
+        // Thay ký tự đĐ
+        str = str.replace(/[đĐ]/g, 'd');
+        
+        // Xóa ký tự đặc biệt
+        str = str.replace(/([^0-9a-z-\s])/g, '');
+     
+        // Xóa khoảng trắng thay bằng ký tự -
+        str = str.replace(/(\s+)/g, '');
+        
+        // Xóa ký tự - liên tiếp
+        str = str.replace(/-+/g, '-');
+     
+        // xóa phần dư - ở đầu & cuối
+        str = str.replace(/^-+|-+$/g, '');
+     
+        // return
+        return str;
+    }
+}
+
     return (
         <div>
             <div className="relative">
                 <div
                     className="mx-auto px-4 filter brightness-50"
                     style={{
-                        backgroundImage: `url(${searchResults})`,
+                        backgroundImage: `url(http://localhost:8080/fileSystem/${images}4.jpg)`,
                         backgroundSize: 'cover',
-                        height: '500px',
+                        height: '800px',
                     }}
                 ></div>
                 
                 <h1 className="pl-48 text-9xl text-white absolute top-1/2 -translate-y-1/2">
-                        {/* {destination[0].name} */}
+                    {destination[0]?.name}
                 </h1>
             </div>
             <div className="max-w-[1240px] mx-auto pt-16 px-4">
                 <div className="grid grid-cols-2 gap-7">
                     <div>
-                        <p className="pt-16">
-                            {/* {destination[0].createdAt} */}
+                        <p className="">
+                            {destination[0]?.createdAt}
                         </p>
                         <strong>
-                            {/* {destination[0].introduce} */}
+                            {destination[0]?.introduce}
                         </strong>
                         <p className="pt-16">
-                            {/* {destination[0].content} */}
+                            {destination[0]?.content}
                         </p>
                     </div>
-                    <div>api maps</div>
+                    <div className='h-60'>api maps</div>
                 </div>
                 <Swiper
                     spaceBetween={30}
@@ -89,21 +120,21 @@ function DestinationPage() {
                     <SwiperSlide>
                         <img
                             className="object-fill w-full"
-                            src="https://cdn.pixabay.com/photo/2022/03/20/15/40/nature-7081138__340.jpg"
+                            // src={`http://localhost:8080/fileSystem/${images}1.jpg`}
                             alt="slide 1"
                         />
                     </SwiperSlide>
                     <SwiperSlide>
                         <img
                             className="object-fill w-full"
-                            src="https://cdn.pixabay.com/photo/2022/07/24/17/55/wind-energy-7342177__340.jpg"
+                            // src={`http://localhost:8080/fileSystem/${images}2.jpg`}
                             alt="slide 2"
                         />
                     </SwiperSlide>
                     <SwiperSlide>
                         <img
                             className="object-fill w-full"
-                            src="https://cdn.pixabay.com/photo/2022/07/26/03/35/jogger-7344979__340.jpg"
+                            // src={`http://localhost:8080/fileSystem/${images}3.jpg`}
                             alt="slide 3"
                         />
                     </SwiperSlide>
