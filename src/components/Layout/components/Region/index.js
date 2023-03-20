@@ -1,5 +1,5 @@
 import React from 'react';
-import HaGiang from '~/assets/HaGiang.jpg';
+import HaGiang from '~/assets/hagiang.jpg';
 import CarouselDestination from './carousel';
 import { useParams } from 'react-router-dom';
 function RegionPage() {
@@ -121,8 +121,7 @@ function RegionPage() {
                 </div>
 
                 {/* diem du lich region do */}
-                <div id="section3"><CarouselDestination /></div>
-                
+                <div id="section3"><CarouselDestination regionName={regionName}/></div>
             </div>
         </div>
     );

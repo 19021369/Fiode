@@ -1,10 +1,9 @@
 import React from 'react';
-import HaGiang from '~/assets/HaGiang.jpg';
-import HaLong from '~/assets/HaLong.jpg';
-import HaNoi from '~/assets/HaNoi.jpg';
-import HoiAn from '~/assets/HoiAn.jpg';
+import HaGiang from '~/assets/hagiang.jpg';
+import HaLong from '~/assets/quangninh.jpg';
+import HaNoi from '~/assets/hanoi.jpg';
+import HoiAn from '~/assets/hoian.jpg';
 import PhuQuoc from '~/assets/PhuQuoc.jpg';
-// import SaiGon from '~/assets/SaGon.jpg';
 
 function TopDestinations() {
     return (

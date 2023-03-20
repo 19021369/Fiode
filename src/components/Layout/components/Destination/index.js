@@ -1,7 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
-// import toSlug from '../ConvertVnese';
+import toSlug from '../toSlug';
+
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -31,46 +32,15 @@ function DestinationPage() {
             .then(function (response) {
                 setDestination(response.data)
                 setImages(toSlug(destination[0]?.name))
-                console.log(destination[0]?.name);
-                console.log(images);
+            
             })
             .catch(function (error) {
                 console.log(error);
             });
         }
         fetchData()
-    },[])
+    },[images])
 
-    
-function toSlug(str) {
-	// Chuyển hết sang chữ thường
-    if(str !== undefined) {
-        str = str.toString().toLowerCase();     
-     
-        // xóa dấu
-        str = str
-            .normalize('NFD') // chuyển chuỗi sang unicode tổ hợp
-            .replace(/[\u0300-\u036f]/g, ''); // xóa các ký tự dấu sau khi tách tổ hợp
-     
-        // Thay ký tự đĐ
-        str = str.replace(/[đĐ]/g, 'd');
-        
-        // Xóa ký tự đặc biệt
-        str = str.replace(/([^0-9a-z-\s])/g, '');
-     
-        // Xóa khoảng trắng thay bằng ký tự -
-        str = str.replace(/(\s+)/g, '');
-        
-        // Xóa ký tự - liên tiếp
-        str = str.replace(/-+/g, '-');
-     
-        // xóa phần dư - ở đầu & cuối
-        str = str.replace(/^-+|-+$/g, '');
-     
-        // return
-        return str;
-    }
-}
 
     return (
         <div>
@@ -84,7 +54,7 @@ function toSlug(str) {
                     }}
                 ></div>
                 
-                <h1 className="pl-48 text-9xl text-white absolute top-1/2 -translate-y-1/2">
+                <h1 className="text-9xl text-white text-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-[Babylonica]">
                     {destination[0]?.name}
                 </h1>
             </div>
@@ -120,21 +90,21 @@ function toSlug(str) {
                     <SwiperSlide>
                         <img
                             className="object-fill w-full"
-                            // src={`http://localhost:8080/fileSystem/${images}1.jpg`}
+                            src={`http://localhost:8080/fileSystem/${images}1.jpg`}
                             alt="slide 1"
                         />
                     </SwiperSlide>
                     <SwiperSlide>
                         <img
                             className="object-fill w-full"
-                            // src={`http://localhost:8080/fileSystem/${images}2.jpg`}
+                            src={`http://localhost:8080/fileSystem/${images}2.jpg`}
                             alt="slide 2"
                         />
                     </SwiperSlide>
                     <SwiperSlide>
                         <img
                             className="object-fill w-full"
-                            // src={`http://localhost:8080/fileSystem/${images}3.jpg`}
+                            src={`http://localhost:8080/fileSystem/${images}3.jpg`}
                             alt="slide 3"
                         />
                     </SwiperSlide>

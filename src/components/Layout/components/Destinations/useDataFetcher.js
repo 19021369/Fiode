@@ -14,7 +14,6 @@ function useDataFetcher() {
             var config = {
                 method: 'get',
                 url: `${API_URL}`,
-                // url: `${API_URL}&page=${page}`,
                 headers: {
                     'Content-Type': 'application/json',
                 }

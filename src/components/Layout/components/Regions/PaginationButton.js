@@ -32,20 +32,20 @@ function PaginationButton({setCurrentPage, currentPage, totalPages}) {
             <ReactPaginate
                 breakLabel={<span className="mr-4">...</span>}
                 nextLabel={
-                    <span className="w-10 h-10 flex items-center justify-center bg-gray-300 rounded-md">
+                    <span className="w-10 h-10 justify-center bg-gray-300 rounded-md flex items-center ">
                         <BsChevronRight />
                     </span>
                 }
                 onPageChange={handlePageClick}
                 pageRangeDisplayed={3}
-                pageCount={20}
+                pageCount={totalPages}
                 previousLabel={
                     <span className="w-10 h-10 flex items-center justify-center bg-gray-300 rounded-md">
                         <BsChevronLeft />
                     </span>
                 }
                 containerClassName="flex items-center justify-center"
-                pageClassName="block border-solid border-lightGray hover:bg-gray-300 w-10 h-10 flex items-center justify-center rounded-md"
+                pageClassName="block flex items-center justify-center rounded-md border-solid border-lightGray hover:bg-gray-300 w-10 h-10"
                 activeClassName="bg-purple-600 text-white"
             />
         </motion.div>

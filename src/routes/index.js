@@ -8,9 +8,8 @@ import Register from '~/pages/Register';
 import SearchResults from '~/pages/SearchResults';
 import Destination from '~/pages/Destination';
 import Region from '~/pages/Region';
-import Event from '~/pages/Event';
 import Profile from '~/pages/Profile';
-
+import FestivalsnEvent from '~/pages/Event';
 // PublicRoutes
 const publicRoutes = [
     { path: '/', component: Home },
@@ -23,9 +22,8 @@ const publicRoutes = [
     { path: '/searchresults/:searcharea', component: SearchResults},
     { path: '/destinations/:destinationName', component: Destination},
     { path: '/regions/:regionName', component: Region},
-    { path: '/festivals&events/:eventName', component: Event},
     { path: '/profile', component: Profile},
-    
+    { path: '/festivals&events/:month/:eventName',component: FestivalsnEvent},
 
 ]
 

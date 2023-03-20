@@ -1,9 +1,9 @@
 import React from 'react'
-import FestivalNEvent from '~/components/Layout/components/FestivalsNEvents'
+import EventPage from '~/components/Layout/components/FestivalsNEvents'
 
 function FestivalsnEvents() {
   return (
-    <FestivalNEvent />
+    <EventPage />
   )
 }
 

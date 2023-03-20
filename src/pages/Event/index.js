@@ -1,10 +1,10 @@
 import React from 'react'
-import EventPage from '~/components/Layout/components/Event'
+import FestivalNEvent from '~/components/Layout/components/EventPage'
 
-function Event() {
+function FestivalsnEvent() {
   return (
-    <EventPage />
+    <FestivalNEvent />
   )
 }
 
-export default Event
+export default FestivalsnEvent

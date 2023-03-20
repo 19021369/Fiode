@@ -1,13 +1,24 @@
 import React, { useState, useRef, useEffect } from 'react';
-
-import HaGiang from '~/assets/HaGiang.jpg';
-import HaLong from '~/assets/HaLong.jpg';
-import HaNoi from '~/assets/HaNoi.jpg';
-import HoiAn from '~/assets/HoiAn.jpg';
-import PhuQuoc from '~/assets/PhuQuoc.jpg';
+import axios, * as others from 'axios';
+import { useParams } from 'react-router-dom';
+import toSlug from '../toSlug';
 
 function CarouselDestination() {
-    const data = [HaGiang, HaLong, HaNoi, HoiAn, PhuQuoc, HoiAn, HaNoi];
+    const [locations, setLocations] = useState([]);
+    const { regionName } = useParams();
+    useEffect(() => {
+        const fetchData = async () => {
+            await axios
+                .get(`http://localhost:8080/api/regions/location?location=${regionName}`)
+                .then(
+                  (result) => setLocations(result.data)
+
+                ).catch((err) =>
+                {console.log(err);})
+        }
+        fetchData()
+    },[]);
+
     const maxScrollWidth = useRef(0);
     const [currentIndex, setCurrentIndex] = useState(0);
     const carousel = useRef(null);
@@ -57,71 +68,72 @@ function CarouselDestination() {
     }, []);
 
     return (
-        <div className="carousel mx-auto">
-            <div className="relative overflow-hidden">
-                <div className="flex justify-between absolute top left w-full h-full">
+        <div className='carousel mx-auto'>
+            <div className='relative overflow-hidden'>
+                <div className='flex justify-between absolute top left w-full h-full'>
                     <button
                         onClick={movePrev}
-                        className="bg-red-600 rounded-none hover:bg-red-900/75 text-white w-10 h-full text-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300"
+                        className='bg-red-600 rounded-none hover:bg-red-900/75 text-white w-10 h-full text-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300'
                         disabled={isDisabled('prev')}
                     >
                         <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-12 w-20 -ml-5"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
+                            xmlns='http://www.w3.org/2000/svg'
+                            className='h-12 w-20 -ml-5'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            stroke='currentColor'
                             strokeWidth={2}
                         >
                             <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M15 19l-7-7 7-7"
+                                strokeLinecap='round'
+                                strokeLinejoin='round'
+                                d='M15 19l-7-7 7-7'
                             />
                         </svg>
-                        <span className="sr-only">Prev</span>
+                        <span className='sr-only'>Prev</span>
                     </button>
                     <button
                         onClick={moveNext}
-                        className="bg-red-600 rounded-none hover:bg-blue-900/75 text-white w-10 h-full text-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300"
+                        className='bg-red-600 rounded-none hover:bg-blue-900/75 text-white w-10 h-full text-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300'
                         disabled={isDisabled('next')}
                     >
                         <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-12 w-20 -ml-5"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
+                            xmlns='http://www.w3.org/2000/svg'
+                            className='h-12 w-20 -ml-5'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            stroke='currentColor'
                             strokeWidth={2}
                         >
                             <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M9 5l7 7-7 7"
+                                strokeLinecap='round'
+                                strokeLinejoin='round'
+                                d='M9 5l7 7-7 7'
                             />
                         </svg>
-                        <span className="sr-only">Next</span>
+                        <span className='sr-only'>Next</span>
                     </button>
                 </div>
-                <div ref={carousel}
-                    className="carousel-container relative flex gap-1 overflow-hidden scroll-smooth snap-x snap-mandatory touch-pan-x z-0"
+                <div
+                    ref={carousel}
+                    className='carousel-container relative flex gap-1 overflow-hidden scroll-smooth snap-x snap-mandatory touch-pan-x z-0'
                 >
-                    {data.map((resource, index) => (
+                    {locations?.map((location, index) => (
                         <div
                             key={index}
-                            className="carousel-item text-center relative w-100 h-64 snap-start"
+                            className='carousel-item text-center relative w-100 h-64 snap-start'
                         >
                             <a
-                                className="h-full w-full aspect-square block bg-origin-padding bg-left-top bg-cover bg-no-repeat z-0"
-                                href={'/destination/phuquoc'}
+                                className='h-full w-full aspect-square block bg-origin-padding bg-left-top bg-cover bg-no-repeat z-0'
+                                href={`http://localhost:3000/destinations/${location.name}`}
                             >
                                 <img
-                                    className="w-full h-full object-cover filter brightness-100 hover:brightness-50 aspect-square"
-                                    src={resource}
-                                    alt="Phú Quốc"
+                                    className='w-full h-full object-cover filter brightness-100 hover:brightness-50 aspect-square'
+                                    src={`http://localhost:8080/fileSystem/${toSlug(location.name)}1.jpg`}
+                                    alt={location.name}
                                 />
-                                <h2 className="absolute bottom-0 left-0 bg-gray-700 bg-opacity-50 w-full text-white">
-                                    Phú Quốc
+                                <h2 className='absolute bottom-0 left-0 bg-gray-900 bg-opacity-50 w-full text-white text-lg'>
+                                    {location.name}
                                 </h2>
                             </a>
                         </div>

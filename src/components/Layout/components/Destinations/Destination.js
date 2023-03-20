@@ -5,11 +5,10 @@ import useDataFetcher from './useDataFetcher';
 import videoplayback from '~/assets/videoplayback.mp4';
 
 function Destination() {
-
     const { loading, pages, totalPages, currentPage, setCurrentPage } =
-        useDataFetcher();
+    useDataFetcher();
 
-            return (
+    return (
         // blocks cac tinh thanh, khi an se chuyen sang destination filter theo tinh thanh do
         <div>
             <video
@@ -29,9 +28,8 @@ function Destination() {
                         <div className=" grid sm:grid-cols-3 lg:grid-cols-4 gap-4">
                             {pages.map((page) => (
                                 <SelectsCard
-                                    key={page.id}
-                                    bg={page.imageurl}
-                                    name={page.name}
+                                    key={page?.id}
+                                    name={page?.name}
                                 />
                             ))}
                         </div>
