@@ -3,7 +3,7 @@ import HaGiang from '~/assets/hagiang.jpg';
 import HaLong from '~/assets/quangninh.jpg';
 import HaNoi from '~/assets/hanoi.jpg';
 import HoiAn from '~/assets/hoian.jpg';
-import PhuQuoc from '~/assets/PhuQuoc.jpg';
+import PhuQuoc from '~/assets/phuquoc.jpg';
 
 function TopDestinations() {
     return (

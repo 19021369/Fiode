@@ -3,8 +3,8 @@ import HaGiang from '~/assets/hagiang.jpg';
 import HaLong from '~/assets/quangninh.jpg';
 import HaNoi from '~/assets/hanoi.jpg';
 import HoiAn from '~/assets/hoian.jpg';
-import PhuQuoc from '~/assets/PhuQuoc.jpg';
-import SaiGon from '~/assets/SaiGon.jpg';
+import PhuQuoc from '~/assets/phuquoc.jpg';
+import SaiGon from '~/assets/saigon.jpg';
 
 import SelectsCard from './Select';
 

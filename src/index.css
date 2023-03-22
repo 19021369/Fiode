@@ -40,3 +40,10 @@
     @apply text-2xl cursor-pointer
   }
 }
+
+.ql-container.ql-snow {
+  min-height: 500px;
+}
+.titleblogs {
+  border: 1px solid #ccc;
+}

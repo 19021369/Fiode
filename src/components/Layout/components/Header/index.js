@@ -58,24 +58,7 @@ function Header() {
                         />
                     </div>
                 </form>
-                {/* khi chua dang nhap */}
-                {/* <a href="/login" className="flex items-center hidden">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                        />
-                    </svg>
-                </a> */}
-                {/* khi da dang nhap */}
+
                 <Menu as="div" className="relative w-fit">
                     <div>
                         <Menu.Button className="border-none px-0">
@@ -107,61 +90,70 @@ function Header() {
                     >
                         <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <div className="px-1 py-1 ">
-                                <Menu.Item>
-                                    {({ active }) => (
-                                        <a
-                                            href="/profile"
-                                            className={`${
-                                                active
-                                                    ? 'bg-violet-500 text-white'
-                                                    : 'text-gray-900'
-                                            } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                                        >
-                                            User profile
-                                        </a>
-                                    )}
-                                </Menu.Item>
-                                <Menu.Item>
-                                    {({ active }) => (
-                                        <a
-                                            className={`${
-                                                active
-                                                    ? 'bg-violet-500 text-white'
-                                                    : 'text-gray-900'
-                                            } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                                        >
-                                            Log out
-                                        </a>
-                                    )}
-                                </Menu.Item>
-                                <Menu.Item>
-                                    {({ active }) => (
-                                        <a
-                                            href='/login'
-                                            className={`${
-                                                active
-                                                    ? 'bg-violet-500 text-white'
-                                                    : 'text-gray-900'
-                                            } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                                        >
-                                            Log in
-                                        </a>
-                                    )}
-                                </Menu.Item>
-                                <Menu.Item>
-                                    {({ active }) => (
-                                        <a
-                                            href='/register'
-                                            className={`${
-                                                active
-                                                    ? 'bg-violet-500 text-white'
-                                                    : 'text-gray-900'
-                                            } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                                        >
-                                            Create new account
-                                        </a>
-                                    )}
-                                </Menu.Item>
+                                {typeof localStorage.getItem('token') ===
+                                'string' ? (
+                                    <>
+                                        <Menu.Item>
+                                            {({ active }) => (
+                                                <a
+                                                    href="/profile"
+                                                    className={`${
+                                                        active
+                                                            ? 'bg-violet-500 text-white'
+                                                            : 'text-gray-900'
+                                                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                                >
+                                                    User profile
+                                                </a>
+                                            )}
+                                        </Menu.Item>
+                                        <Menu.Item>
+                                            {({ active }) => (
+                                                <a
+                                                    onClick={() => {localStorage.removeItem('token'); window.location.reload(false)}}
+                                                    className={`${
+                                                        active
+                                                            ? 'bg-violet-500 text-white'
+                                                            : 'text-gray-900'
+                                                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                                >
+                                                    Log out
+                                                </a>
+                                            )}
+                                        </Menu.Item>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Menu.Item>
+                                            {({ active }) => (
+                                                <a
+                                                    href="/login"
+                                                    className={`${
+                                                        active
+                                                            ? 'bg-violet-500 text-white'
+                                                            : 'text-gray-900'
+                                                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                                >
+                                                    Log in
+                                                </a>
+                                            )}
+                                        </Menu.Item>
+                                        <Menu.Item>
+                                            {({ active }) => (
+                                                <a
+                                                    href="/register"
+                                                    className={`${
+                                                        active
+                                                            ? 'bg-violet-500 text-white'
+                                                            : 'text-gray-900'
+                                                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                                >
+                                                    Create new account
+                                                </a>
+                                            )}
+                                        </Menu.Item>
+                                    </>
+                                )}
                             </div>
                         </Menu.Items>
                     </Transition>

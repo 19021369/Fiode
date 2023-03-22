@@ -5,10 +5,11 @@ import { useState } from 'react';
 function LoginPage() {
     const [usernameOrEmail, setUseroremail] = useState('')
     const [password, setPassword] = useState('')
-    const Login = async () => {
+    const [sucess, setSucess] = useState(false)
+    const login = async() => {
         var data = JSON.stringify({
-            usernameOrEmail: usernameOrEmail,
-            password: password,
+            usernameOrEmail: `${usernameOrEmail}`,
+            password: `${password}`,
         });
         var config = {
             method: 'post',
@@ -16,18 +17,20 @@ function LoginPage() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            data: data,
+            data: data
         };
 
         await axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
+                localStorage.removeItem("token")
+                localStorage.setItem('token', response.data.accessToken);
+                
             })
             .catch(function (error) {
                 console.log(error);
             });
-    };
-
+        }
+        console.log(typeof(localStorage.getItem('token')))
     return (
         <div className="flex flex-col relative items-center pt-6 sm:justify-center h-screen overflow-hidden">
             <div>
@@ -75,7 +78,7 @@ function LoginPage() {
                         Forget Password?
                     </a>
                     <div className="mt-6">
-                        <button onClick={Login} className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
+                        <button onClick={login} className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
                             Login
                         </button>
                     </div>

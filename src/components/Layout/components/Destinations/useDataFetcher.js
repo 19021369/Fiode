@@ -26,8 +26,8 @@ function useDataFetcher() {
                 })
                 .catch(function (error) {
                     console.log(error);
-                });
-        };
+                })
+        }
         fetchData()
     },[currentPage])
     return {
