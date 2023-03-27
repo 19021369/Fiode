@@ -110,7 +110,7 @@ function Header() {
                                         <Menu.Item>
                                             {({ active }) => (
                                                 <a
-                                                    onClick={() => {localStorage.removeItem('token'); window.location.reload(false)}}
+                                                    onClick={() => {localStorage.removeItem('token'); localStorage.setItem('authenticated', false); console.log(localStorage.getItem('authenticated')); window.location.reload(false)}}
                                                     className={`${
                                                         active
                                                             ? 'bg-violet-500 text-white'

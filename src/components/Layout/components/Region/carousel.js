@@ -118,7 +118,7 @@ function CarouselDestination() {
                     ref={carousel}
                     className='carousel-container relative flex gap-1 overflow-hidden scroll-smooth snap-x snap-mandatory touch-pan-x z-0'
                 >
-                    {locations?.map((location, index) => (
+                    {(locations.length > 0) && locations?.map((location, index) => (
                         <div
                             key={index}
                             className='carousel-item text-center relative w-100 h-64 snap-start'

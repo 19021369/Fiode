@@ -16,10 +16,10 @@ import CreateBlogs from '~/pages/CreateBlogs';
 // PublicRoutes
 const publicRoutes = [
     { path: '/', component: Home },
+    { path: '/login', component: Login },
     { path: '/destinations', component: Destinations },
     { path: '/regions', component: Regions },
     { path: '/festivals&events',component: FestivalsNEvents },
-    { path: '/login', component: Login },
     { path: '/register', component: Register },
     { path: '/searchresults/', component: SearchResults},
     { path: '/profile', component: Profile},
@@ -28,7 +28,7 @@ const publicRoutes = [
     { path: '/destinations/:destinationName', component: Destination},
     { path: '/regions/:regionName', component: Region},
     { path: '/festivals&events/:month/:eventName',component: FestivalsnEvent},
-    { path: '/blogs/:blogName', component: BlogPages},
+    { path: '/blogs/:blogName/:id', component: BlogPages},
     { path: '/blogs/create', component: CreateBlogs},
 
 
