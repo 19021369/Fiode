@@ -8,7 +8,7 @@ function SearchResultsImg() {
 
     return (
         <div>
-            <div className="relative">
+            <div>
                 <div
                     className="mx-auto px-4 filter brightness-50"
                     style={{
@@ -17,7 +17,7 @@ function SearchResultsImg() {
                         height: '700px',
                     }}
                 ></div>
-                <h1 className="pl-4 text-6xl text-white absolute top-1/2 -translate-y-1/2">
+                <h1 className="pl-10 text-9xl text-white absolute top-1/2 -translate-y-3/4 font-[Babylonica]">
                     Search results for: {searcharea}
                 </h1>
             </div>

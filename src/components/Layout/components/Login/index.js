@@ -6,9 +6,12 @@ import { useNavigate } from 'react-router-dom';
 function LoginPage() {
     const [usernameOrEmail, setUseroremail] = useState('');
     const [password, setPassword] = useState('');
+    const [check, setCheck] = useState(false);
+    const [auth, setAuth] = useState(false);
     const Navigate = useNavigate();
     const login = async () => {
         // dang nhap
+        setCheck(true);
         var data = JSON.stringify({
             usernameOrEmail: `${usernameOrEmail}`,
             password: `${password}`,
@@ -24,13 +27,21 @@ function LoginPage() {
 
         await axios(config)
             .then(function (response) {
-                localStorage.setItem('token', response.data.accessToken);
-                localStorage.setItem('authenticated', true);
+                if (response.status === 200) {
+                    localStorage.setItem('token', response.data.accessToken);
+                    localStorage.setItem('authenticated', true);
+                    setAuth(true);
+
+                } else {
+                    localStorage.setItem('authenticated', false);
+                    setAuth(false);
+                }
             })
             .catch(function (error) {
                 console.log(error);
             });
         // lấy thông tin user
+        if (localStorage.getItem('authenticated') === 'true') {
             const fetchData = async () => {
                 var config = {
                     method: 'get',
@@ -45,19 +56,19 @@ function LoginPage() {
 
                 await axios(config)
                     .then(function (response) {
-                        localStorage.setItem('user', JSON.stringify(response.data));
+                        localStorage.setItem(
+                            'user',
+                            JSON.stringify(response.data)
+                        );
+                        Navigate('/');
                     })
                     .catch(function (error) {
                         console.log(error);
                     });
             };
             fetchData();
-
-        if (localStorage.getItem('authenticated') === 'true') {
-            Navigate('/');
         }
-    };
-
+    } 
     return (
         <div className="flex flex-col relative items-center pt-6 sm:justify-center h-screen overflow-hidden">
             <div>
@@ -106,6 +117,7 @@ function LoginPage() {
                     >
                         Forget Password?
                     </a>
+                    {(check && !auth) ? (<div className='text-red-500'>Sorry, either your username or password is incorrect</div>) : null}
                     <div className="mt-6">
                         <div
                             onClick={login}

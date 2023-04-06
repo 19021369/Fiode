@@ -13,6 +13,8 @@ import FestivalsnEvent from '~/pages/Event';
 import Blogs from '~/pages/Blogs';
 import BlogPages from '~/pages/Blog';
 import CreateBlogs from '~/pages/CreateBlogs';
+import EditBlogs from '~/pages/EditBlogs';
+import Manager from '../pages/Manager';
 // PublicRoutes
 const publicRoutes = [
     { path: '/', component: Home },
@@ -30,7 +32,8 @@ const publicRoutes = [
     { path: '/festivals&events/:month/:eventName',component: FestivalsnEvent},
     { path: '/blogs/:blogName/:id', component: BlogPages},
     { path: '/blogs/create', component: CreateBlogs},
-
+    { path: '/blogs/edit/:blogName/:id', component: EditBlogs},
+    { path: '/manager', component: Manager},
 
 
 ]

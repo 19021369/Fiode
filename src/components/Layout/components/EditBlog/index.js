@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import parse from 'html-react-parser';
@@ -6,14 +6,68 @@ import blogBG from '~/assets/blogs.jpg';
 import '~/index.css';
 import axios from 'axios';
 import toSlug from '../toSlug';
-import { Navigate, useNavigate } from 'react-router-dom';
-function CreateBlog() {
+import { useNavigate, useParams } from 'react-router-dom';
+
+function EditBlog() {
+    const { blogName } = useParams('');
+    const { id } = useParams('');
+
     const Navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [text, setText] = useState('');
     const [file, setFile] = useState([]);
 
-    const handlePost = async () => {
+    useEffect(() => {
+        // get post
+        const fetchData = async () => {
+            var config = {
+                method: 'get',
+                url: `http://localhost:8080/api/posts/${id}`,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            };
+
+            await axios(config)
+                .then(function (response) {
+                    setTitle(response.data.title);
+                    setText(response.data.body);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        };
+        fetchData();
+        
+        var fetchImage = async () => {
+            var res = await fetch(`http://localhost:8080/fileSystem/${toSlug(blogName)}.jpg`);
+            var imageBlob = await res.blob();
+            // setFile(imageBlob);
+            console.log(imageBlob);
+        };
+        fetchImage();
+        // const fetchData1 = async () => {
+        //     var config = {
+        //         method: 'get',
+                // url: `http://localhost:8080/fileSystem/${toSlug(blogName)}.jpg`,
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //     };
+
+        //     await axios(config)
+        //         .then(function (response) {
+        //             console.log(response.blob());
+        //             setFile(response.data)
+        //         })
+        //         .catch(function (error) {
+        //             console.log(error);
+        //         });
+        // };
+        // fetchData1();
+    }, [blogName, id]);
+
+    const handlePut = async () => {
         const obj = {
             title: `${title}`,
             body: `${text}`,
@@ -28,9 +82,9 @@ function CreateBlog() {
         data.append('image', file);
 
         let config = {
-            method: 'post',
+            method: 'put',
             maxBodyLength: Infinity,
-            url: 'http://localhost:8080/api/posts',
+            url: `http://localhost:8080/api/posts/${id}`,
             headers: {
                 'Content-Type': 'multipart/form-data',
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -45,13 +99,14 @@ function CreateBlog() {
             .catch(function (error) {
                 console.log(error);
             });
-        Navigate('/blogs');
+        // Navigate('/blogs');
     };
+
     var handleFile = (e) => {
         var newFile = new File([e.target.files[0]], `${toSlug(title)}.jpg`);
         setFile(newFile);
+        console.log(newFile);
     };
-    console.log(file);
 
     return (
         <div>
@@ -100,8 +155,8 @@ function CreateBlog() {
                     <ReactQuill
                         component={'div'}
                         id="editor"
-                        modules={CreateBlog.modules}
-                        formats={CreateBlog.formats}
+                        modules={EditBlog.modules}
+                        formats={EditBlog.formats}
                         value={text}
                         onChange={(e) => {
                             setText(e);
@@ -110,26 +165,21 @@ function CreateBlog() {
                 </div>
 
                 <div>
-                    {file.length !== 0 && <img src={URL.createObjectURL(file)} />}
                     <h2 className="pt-10">Title</h2>
                     <h3>{title}</h3>
-                    <h3 className="pt-10">Content</h3>
                     <p className="pt-6">{parse(text)}</p>
                 </div>
             </div>
-            <button
-                className="m-10 bg-gray-400 rounded-md"
-                onClick={handlePost}
-            >
-                Submit
+            <button className="m-10 bg-gray-400 rounded-md" onClick={handlePut}>
+                Save
             </button>
         </div>
     );
 }
 
-export default CreateBlog;
+export default EditBlog;
 
-CreateBlog.modules = {
+EditBlog.modules = {
     toolbar: [
         [
             { header: '1' },
@@ -146,7 +196,7 @@ CreateBlog.modules = {
     ],
 };
 
-CreateBlog.formats = [
+EditBlog.formats = [
     'header',
     'font',
     'size',

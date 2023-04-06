@@ -15,28 +15,30 @@ function RegistrationPage() {
             alert('Mat khau khong khop!');
         } else {
             var data = JSON.stringify({
-                firstName: fname,
-                lastName: lname,
-                username: uname,
-                password: password1,
-                email: email,
+                firstName: `${fname}`,
+                lastName: `${lname}`,
+                username: `${uname}`,
+                password: `${password1}`,
+                email: `${email}`,
             });
+
             var config = {
                 method: 'post',
-                url: 'localhost:8080/api/auth/signup',
+                url: 'http://localhost:8080/api/auth/signup',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 data: data,
             };
-        }
+        
         await axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
+                console.log(response.data);
             })
             .catch(function (error) {
                 console.log(error);
             });
+        }
     };
 
     return (
@@ -165,13 +167,13 @@ function RegistrationPage() {
                             Already registered?
                         </a>
 
-                        <button
+                        <p
                             onClick={Signup}
                             // type="submit"
                             className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-purple-600 border border-transparent rounded-md active:bg-purple-900 false"
                         >
                             Register
-                        </button>
+                        </p>
                     </div>
                 </form>
             </div>

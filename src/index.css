@@ -34,7 +34,7 @@
     @apply text-xl font-bold
   }
   button {
-    @apply p-3 border-2 bg-yellow-400 text-white rounded-md
+    @apply p-3 text-white
   }
   .icon {
     @apply text-2xl cursor-pointer

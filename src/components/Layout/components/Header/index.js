@@ -95,22 +95,74 @@ function Header() {
                                     <>
                                         <Menu.Item>
                                             {({ active }) => (
-                                                <a
+                                                <strong
                                                     href="/profile"
-                                                    className={`${
-                                                        active
-                                                            ? 'bg-violet-500 text-white'
-                                                            : 'text-gray-900'
-                                                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                                    className="bg-violet-500 text-white flex w-full items-center rounded-md px-2 py-2 text-sm"
                                                 >
-                                                    User profile
-                                                </a>
+                                                    Hi{' '}
+                                                    {
+                                                        JSON.parse(
+                                                            localStorage.getItem(
+                                                                'user'
+                                                            )
+                                                        )?.username
+                                                    }
+                                                    !
+                                                </strong>
                                             )}
                                         </Menu.Item>
+
+                                        {(JSON.parse(
+                                            localStorage.getItem('user')
+                                        )?.id == 1) ? (
+                                            <Menu.Item>
+                                                {({ active }) => (
+                                                    <a
+                                                        href="/manager"
+                                                        className={`${
+                                                            active
+                                                                ? 'bg-violet-500 text-white'
+                                                                : 'text-gray-900'
+                                                        } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                                    >
+                                                        Data management
+                                                    </a>
+                                                )}
+                                            </Menu.Item>
+                                        ) : (
+                                            <Menu.Item>
+                                                {({ active }) => (
+                                                    <a
+                                                        href="/profile"
+                                                        className={`${
+                                                            active
+                                                                ? 'bg-violet-500 text-white'
+                                                                : 'text-gray-900'
+                                                        } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                                    >
+                                                        User profile
+                                                    </a>
+                                                )}
+                                            </Menu.Item>
+                                        )}
                                         <Menu.Item>
                                             {({ active }) => (
                                                 <a
-                                                    onClick={() => {localStorage.removeItem('token'); localStorage.setItem('authenticated', false); console.log(localStorage.getItem('authenticated')); window.location.reload(false)}}
+                                                    onClick={() => {
+                                                        localStorage.removeItem(
+                                                            'token'
+                                                        );
+                                                        localStorage.setItem(
+                                                            'authenticated',
+                                                            false
+                                                        );
+                                                        localStorage.removeItem(
+                                                            'user'
+                                                        );
+                                                        window.location.reload(
+                                                            false
+                                                        );
+                                                    }}
                                                     className={`${
                                                         active
                                                             ? 'bg-violet-500 text-white'
@@ -141,12 +193,12 @@ function Header() {
                                         <Menu.Item>
                                             {({ active }) => (
                                                 <a
-                                                    href="/register"
                                                     className={`${
                                                         active
                                                             ? 'bg-violet-500 text-white'
                                                             : 'text-gray-900'
                                                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                                    href="/register"
                                                 >
                                                     Create new account
                                                 </a>

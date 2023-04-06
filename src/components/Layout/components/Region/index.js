@@ -1,10 +1,35 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import HaGiang from '~/assets/hagiang.jpg';
 import CarouselDestination from './carousel';
 import { useParams } from 'react-router-dom';
+import toSlug from '../toSlug';
+import axios from 'axios';
 function RegionPage() {
     const { regionName } = useParams();
+    const [region, setRegion] = useState('');
+    const images = useState(toSlug(regionName));
+    console.log(regionName);
+    useEffect(() => {
+        const fetchData = async() => {
+        var config = {
+            method: 'get',
+            url: `http://localhost:8080/api/regions/${regionName}`,
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        };
 
+        await axios(config)
+            .then(function (response) {
+                setRegion(response.data)  
+            })
+            .catch(function (error) {
+                console.log(error)
+            });
+        }
+        fetchData()
+    },[])
+    console.log(region);
     return (
         <div>
             <div className="relative h-full w-full">

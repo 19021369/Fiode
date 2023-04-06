@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useReducer } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import toSlug from '../toSlug';
 import axios from 'axios';
 import parse from 'html-react-parser';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import { Menu, Transition } from '@headlessui/react';
 
 function BlogPage() {
     const { blogName } = useParams('');
@@ -10,12 +14,24 @@ function BlogPage() {
     const [post, setPost] = useState('');
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState([]);
+    const [edit, setEdit] = useState(false);
+    const [editCmt, setEditCmt] = useState('');
+    const [editId, setEditId] = useState('');
+    const [reducerDelComment, forceUpdateDelComment] = useReducer(
+        (x) => x + 1,
+        0
+    );
+    const [reducerComment, forceUpdateComment] = useReducer((x) => x + 1, 0);
+    const [reducerEditComment, forceUpdateEditComment] = useReducer(
+        (x) => x + 1,
+        0
+    );
     useEffect(() => {
         // get post
         const fetchData = async () => {
             var config = {
                 method: 'get',
-                url: `http://localhost:8080/api/posts?id=${id}`,
+                url: `http://localhost:8080/api/posts/${id}`,
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -23,14 +39,14 @@ function BlogPage() {
 
             await axios(config)
                 .then(function (response) {
-                    setPost(response.data.content);
+                    setPost(response.data);
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
         };
         fetchData();
-    }, [blogName]);
+    }, [blogName, id]);
 
     useEffect(() => {
         // get comments
@@ -43,7 +59,7 @@ function BlogPage() {
                 },
             };
 
-            await axios(config)
+            axios(config)
                 .then(function (response) {
                     setComments(response.data.content);
                 })
@@ -52,13 +68,13 @@ function BlogPage() {
                 });
         };
         fetchData1();
-    },[comment])
-
+    }, [reducerDelComment, reducerComment, reducerEditComment]);
 
     const handleChange = (event) => {
         setComment(event.target.value);
     };
 
+    //handle save cmt
     const handleKeyDown = async (event) => {
         if (event.key === 'Enter') {
             let data = JSON.stringify({
@@ -83,7 +99,73 @@ function BlogPage() {
                 .catch(function (error) {
                     console.log(error);
                 });
+            setComment('');
+            forceUpdateComment();
         }
+    };
+
+    const handleDelete = async (cmtId) => {
+        let config = {
+            method: 'delete',
+            maxBodyLength: Infinity,
+            url: `http://localhost:8080/api/posts/${id}/comments/${cmtId}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        };
+
+        await axios(config)
+            .then(function (response) {
+                console.log(response.data);
+                // window.location.reload(false);
+                let updateComments = comments;
+                const index = updateComments.findIndex(
+                    (obj) => obj.id === cmtId
+                );
+                updateComments.splice(index, 1);
+                setComments(updateComments);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        forceUpdateDelComment();
+    };
+
+    const handleEdit = async (cmt) => {
+        setEdit(true);
+        setEditCmt(cmt.body);
+        setEditId(cmt.id);
+    };
+
+    const handleSaveEdit = async () => {
+        console.log(editCmt);
+        let data = JSON.stringify({
+            body: `${editCmt}`,
+        });
+
+        let config = {
+            method: 'put',
+            maxBodyLength: Infinity,
+            url: `http://localhost:8080/api/posts/${id}/comments/${editId}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+            data: data,
+        };
+
+        await axios(config)
+            .then(function (response) {
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        setEdit(false);
+        setEditId('');
+        setEditCmt('');
+        forceUpdateEditComment();
     };
 
     return (
@@ -96,7 +178,7 @@ function BlogPage() {
             <div className="max-w-[1240px] mx-auto items-center">
                 <div className="shadow-lg p-16 px-4 rounded-xl">
                     <h1>{blogName}</h1>
-                    {post[0]?.body && <div>{parse(post[0]?.body)}</div>}
+                    {post?.body && <div>{parse(post?.body)}</div>}
                 </div>
                 {/* comment input */}
                 <div className=" text-black dark:text-gray-200 px-4 pt-4 antialiased flex">
@@ -123,24 +205,125 @@ function BlogPage() {
 
                 {/* comment */}
                 {comments.length > 0 &&
-                    comments?.map((cmt,index) => (
-                        <div key={index} className=" text-black dark:text-gray-200 px-4 antialiased flex">
+                    comments?.map((cmt) => (
+                        <div
+                            key={cmt.id}
+                            className=" text-black dark:text-gray-200 px-4 antialiased flex"
+                        >
                             <img
+                                alt="avatar"
                                 className="rounded-full h-8 w-8 mr-2 mt-1 "
                                 src="https://picsum.photos/id/1027/200/200"
                             />
                             <div>
-                                <div className="text-gray-900 shadow-2xl rounded-3xl px-4 pt-2 pb-2.5">
+                                <div className="text-gray-900 shadow-2xl rounded-3xl px-4 pt-2 pb-2.5 w-fit">
                                     <div className="font-semibold text-sm leading-relaxed">
                                         {cmt.name}
                                     </div>
-                                    <div className="text-normal leading-snug md:leading-normal">
-                                        {cmt.body}
-                                    </div>
+                                    {edit && editId === cmt.id ? (
+                                        <textarea
+                                            className="text-normal w-[1136px]"
+                                            value={editCmt}
+                                            onChange={(e) => {
+                                                setEditCmt(e.target.value);
+                                            }}
+                                        ></textarea>
+                                    ) : (
+                                        <div className="text-normal leading-snug break-all">
+                                            {cmt.body}
+                                        </div>
+                                    )}
                                 </div>
                                 <div className="text-sm ml-4 mt-0.5 text-gray-500 dark:text-gray-400">
                                     14 w
                                 </div>
+                            </div>
+                            <div className="relative w-14">
+                                {edit && editId === cmt.id ? (
+                                    <button
+                                        onClick={() => handleSaveEdit()}
+                                        className="bg-gray-400 active:text-white flex w-full items-center justify-center rounded-md ml-4"
+                                    >
+                                        Save
+                                    </button>
+                                ) : (
+                                    (JSON.parse(localStorage.getItem('user'))
+                                        .id === cmt.createdBy ||
+                                        JSON.parse(localStorage.getItem('user'))
+                                            .id === post.createdBy) && (
+                                        <Menu as="div">
+                                            <div>
+                                                <Menu.Button className="text-gray-900 border-none p-0 absolute left-4 top-4">
+                                                    <FontAwesomeIcon
+                                                        icon={faEllipsis}
+                                                        size="2xl"
+                                                        className="text-gray-900"
+                                                    />
+                                                </Menu.Button>
+                                            </div>
+
+                                            <Transition
+                                                as={Fragment}
+                                                enter="transition ease-out duration-100"
+                                                enterFrom="transform opacity-0 scale-95"
+                                                enterTo="transform opacity-100 scale-100"
+                                                leave="transition ease-in duration-75"
+                                                leaveFrom="transform opacity-100 scale-100"
+                                                leaveTo="transform opacity-0 scale-95"
+                                            >
+                                                <Menu.Items className="absolute left-16 divide-y divide-gray-100 rounded-xl bg-white shadow-2xl ring-opacity-5 focus:outline-none">
+                                                    <div className="px-1 py-1 ">
+                                                        {JSON.parse(
+                                                            localStorage.getItem(
+                                                                'user'
+                                                            )
+                                                        ).id ===
+                                                            cmt.createdBy && (
+                                                            <Menu.Item>
+                                                                {({
+                                                                    active,
+                                                                }) => (
+                                                                    <button
+                                                                        onClick={() =>
+                                                                            handleEdit(
+                                                                                cmt
+                                                                            )
+                                                                        }
+                                                                        className={`${
+                                                                            active
+                                                                                ? 'bg-gray-400 text-white'
+                                                                                : 'text-gray-900'
+                                                                        } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                                                    >
+                                                                        Edit
+                                                                    </button>
+                                                                )}
+                                                            </Menu.Item>
+                                                        )}
+                                                        <Menu.Item>
+                                                            {({ active }) => (
+                                                                <button
+                                                                    onClick={() =>
+                                                                        handleDelete(
+                                                                            cmt.id
+                                                                        )
+                                                                    }
+                                                                    className={`${
+                                                                        active
+                                                                            ? 'bg-gray-400 text-white'
+                                                                            : 'text-gray-900'
+                                                                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                                                >
+                                                                    Delete
+                                                                </button>
+                                                            )}
+                                                        </Menu.Item>
+                                                    </div>
+                                                </Menu.Items>
+                                            </Transition>
+                                        </Menu>
+                                    )
+                                )}
                             </div>
                         </div>
                     ))}

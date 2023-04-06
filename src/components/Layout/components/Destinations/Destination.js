@@ -26,7 +26,7 @@ function Destination() {
                         <div className="text-center text-5xl">Loading...</div>
                     ) : (
                         <div className=" grid sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                            {pages.map((page) => (
+                            {pages.length !==0 && pages.map((page) => (
                                 <SelectsCard
                                     key={page?.id}
                                     name={page?.name}

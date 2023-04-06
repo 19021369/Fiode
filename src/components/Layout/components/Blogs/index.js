@@ -1,12 +1,13 @@
 import React from 'react';
 import { Menu, Transition } from '@headlessui/react';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState, useReducer } from 'react';
 import axios from 'axios';
 import blogBG from '~/assets/blogs.jpg';
 import toSlug from '../toSlug';
 import Popup from 'reactjs-popup';
 
 function Blog() {
+    const [reducerpost, forceUpdate] = useReducer((x) => x + 1, 0);
     const [user, setUser] = useState('');
     const [posts, setPosts] = useState([]);
     var userposts;
@@ -28,7 +29,7 @@ function Blog() {
             .catch(function (error) {
                 console.log(error);
             });
-        window.location.reload(false);
+        forceUpdate();
     };
     // lay thong tin user
     useEffect(() => {
@@ -73,7 +74,7 @@ function Blog() {
                 });
         };
         fetchData1();
-    }, [user]);
+    }, [reducerpost]);
 
     if (posts.length > 0) {
         userposts = posts?.filter((post) => {
@@ -104,7 +105,7 @@ function Blog() {
                     <div>
                         <h1 className="font-[Babylonica] pb-12 text-7xl text-center">
                             Bài viết của tôi
-                        </h1>
+                        </h1> 
                         {posts.length > 0 ? (
                             <>
                                 <div className="grid grid-item grid-cols-3">
@@ -148,10 +149,10 @@ function Blog() {
                                                                         active,
                                                                     }) => (
                                                                         <a
-                                                                            href="/profile"
+                                                                            href={`/blogs/edit/${userpost.title}/${userpost.id}`}
                                                                             className={`${
                                                                                 active
-                                                                                    ? 'bg-yellow-400 text-white'
+                                                                                    ? 'bg-gray-400 text-white'
                                                                                     : 'text-gray-900'
                                                                             } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                                                         >
@@ -163,9 +164,9 @@ function Blog() {
                                                                     <>
                                                                         <Popup
                                                                             trigger={
-                                                                                <a className=" hover:bg-yellow-400 hover:text-white text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm">
+                                                                                <button className=" hover:bg-gray-400 hover:text-white text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm">
                                                                                     Delete
-                                                                                </a>
+                                                                                </button>
                                                                             }
                                                                         >
                                                                             <h3>
@@ -181,11 +182,11 @@ function Blog() {
                                                                                             userpost.id
                                                                                         )
                                                                                     }
-                                                                                    className="p-0 h-6 w-16 text-black"
+                                                                                    className="p-0 h-6 w-16 hover:bg-gray-400 hover:text-white text-gray-900 rounded-md"
                                                                                 >
                                                                                     Yes
                                                                                 </button>
-                                                                                <button className="p-0 h-6 w-16 text-black">
+                                                                                <button className="p-0 h-6 w-16 hover:bg-gray-400 hover:text-white text-gray-900 rounded-md">
                                                                                     No
                                                                                 </button>
                                                                             </div>
@@ -220,7 +221,7 @@ function Blog() {
                                 </div>
                             </>
                         ) : (
-                            <h1 className='flex items-center justify-center font-[Babylonica] text-5xl'>
+                            <h1 className="flex items-center justify-center font-[Babylonica] text-5xl">
                                 Bạn chưa có bài viết nào, chia sẻ điều gì đó bên
                                 dưới!
                             </h1>
