@@ -107,7 +107,7 @@ function Users({ objectName }) {
             });
         forceUpdate();
     };
-
+    var reversedObjects = objects?.map(item => item)?.reverse();
     return (
         <div>
             {objectName === 'users' && (
@@ -159,8 +159,8 @@ function Users({ objectName }) {
                         </tr>                       
                     </thead>
                     <tbody>
-                        {objects.length !== 0 &&
-                            objects?.map((object) => (
+                        {reversedObjects.length !== 0 &&
+                            reversedObjects?.map((object) => (
                                 <>
                                     {edit && object.id === id ? (
                                         <tr

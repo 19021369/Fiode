@@ -9,9 +9,9 @@ function Contents({ events, month }) {
                         <div className='wrap-thumb'>
                             <img
                                 alt='thumb'
-                                src={`http://localhost:8080/fileSystem/${toSlug(event.name)}.jpeg`}
-                                className='thumb'
-                            ></img>
+                                src={`http://localhost:8080/fileSystem/${toSlug(event.name)}.jpg`}
+                                className='thumb w-[292px] h-[182.5px]'
+                            ></img> 
                         </div>  
                         <div className='info bg-black text-white p-5'>
                             <h5 className='title text-xl font-bold pb-4'>

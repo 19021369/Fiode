@@ -36,8 +36,8 @@ function EventPage() {
                     <div className='w-full shadow-lg aspect-w-1 aspect-h-1 bg-red-700'>
                         <img
                             alt='thumb'
-                            src={`http://localhost:8080/fileSystem/${toSlug(event[0]?.name)}.jpeg`}
-                            className='thumb w-full'
+                            src={`http://localhost:8080/fileSystem/${toSlug(event[0]?.name)}.jpg`}
+                            className='thumb object-cover h-full'
                         ></img>
                     </div>
 
@@ -47,7 +47,7 @@ function EventPage() {
                         href='/festivals&events'
                         className='link-back text-yellow-400'
                     >
-                        <span>Back to {month.toUpperCase()} Events</span>
+                        <span>Back to EVENTS page</span>
                     </a>
                     <h1 className='title font-bold pb-8'>{event[0]?.name}</h1>
                     <span className='date text-sm font-thin py-8'>
@@ -66,8 +66,8 @@ function EventPage() {
                                 alt='thumb'
                                 src={`http://localhost:8080/fileSystem/${toSlug(
                                     event.name
-                                )}.jpeg`}
-                                className='thumb'
+                                )}.jpg`}
+                                className='thumb object-fill'
                             ></img>
                         </div>
                         <div className='info bg-black text-white p-5'>

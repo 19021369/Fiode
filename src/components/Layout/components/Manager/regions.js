@@ -13,8 +13,7 @@ function Regions({ objectName }) {
     const [weather, setWeather] = useState();
     const [objects, setObjects] = useState([]);
     const [reducerComment, forceUpdateComment] = useReducer((x) => x + 1, 0);
-    const [files, setFile] = useState([]);
-    const [count, forceCount] = useReducer((x) => x + 1, 1);
+    const [file, setFile] = useState([]);
     const [reducerdes, forceUpdate] = useReducer((x) => x + 1, 0);
 
     const [name1, setName1] = useState();
@@ -24,7 +23,7 @@ function Regions({ objectName }) {
     const [transportation1, setTransportation1] = useState();
     const [weather1, setWeather1] = useState();
     const [reducerComment1, forceUpdateComment1] = useReducer((x) => x + 1, 0);
-    const [files1, setFile1] = useState([]);
+    const [file1, setFile1] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -47,34 +46,44 @@ function Regions({ objectName }) {
         };
         fetchData();
     }, [objectName, reducerComment, reducerComment1, reducerdes]);
-    console.log(objects);
     const handleEdit = (object) => {
         setEdit(true);
         setId(object.id);
         setName(object.name);
         setSide(object.side);
         setDescription(object.description);
-        setToDo(object.toDo);
+        setToDo(object.todo);
         setTransportation(object.transportation);
         setWeather(object.weather);
     };
 
     const handleSave = async () => {
-        let data = JSON.stringify({
+        const obj = {
             name: `${name}`,
             side: `${side}`,
             description: `${description}`,
             todo: `${todo}`,
             transportation: `${transportation}`,
             weather: `${weather}`,
-        });
+        };
 
+        const json = JSON.stringify(obj);
+        const blob = new Blob([json], {
+            type: 'application/json',
+        });
+        const data = new FormData();
+        data.append('region', blob);
+        
+        if(file !== undefined) {
+          data.append('image', file);  
+        }
+        
         let config = {
             method: 'put',
             maxBodyLength: Infinity,
             url: `http://localhost:8080/api/regions/${id}`,
             headers: {
-                'Content-type': 'application/json',
+                'Content-type': 'multipart/form-data',
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
             data: data,
@@ -91,10 +100,11 @@ function Regions({ objectName }) {
         setName('');
         setSide('');
         setDescription('');
-        setToDo('')
+        setToDo('');
         setTransportation('');
         setWeather('');
         setEdit(false);
+        setFile();
         forceUpdateComment();
     };
 
@@ -114,8 +124,7 @@ function Regions({ objectName }) {
         });
         const data = new FormData();
         data.append('region', blob);
-        data.append('image', files1);
-        console.log(data);
+        data.append('image', file1);
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
@@ -147,153 +156,154 @@ function Regions({ objectName }) {
     var handleFile1 = (e) => {
         var newFile = new File([e.target.files[0]], `${toSlug(name1)}.jpg`);
         setFile1(newFile);
-        forceCount();
     };
     var handleFile = (e) => {
         var newFile = new File([e.target.files[0]], `${toSlug(name)}.jpg`);
         setFile(newFile);
-        forceCount();
     };
 
-    const handleDelete = async (id) => {var config = {
-        method: 'delete',
-        url: `http://localhost:8080/api/regions/${id}`,
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-    };
+    const handleDelete = async (id) => {
+        var config = {
+            method: 'delete',
+            url: `http://localhost:8080/api/regions/${id}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        };
 
-    await axios(config)
-        .then(function (response) {
-            console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    forceUpdate();};
+        await axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        forceUpdate();
+    };
+    var reversedObjects = objects?.map(item => item)?.reverse();
+
     return (
         <div>
             {objectName === 'regions' && (
-                <table className="min-w-full">
-                    <thead className="bg-white border-b">
+                <table className='min-w-full'>
+                    <thead className='bg-white border-b'>
                         <tr>
                             <th
-                                scope="col"
-                                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                scope='col'
+                                className='text-sm font-medium text-gray-900 px-6 py-4 text-left'
                             >
                                 Id
                             </th>
                             <th
-                                scope="col"
-                                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                scope='col'
+                                className='text-sm font-medium text-gray-900 px-6 py-4 text-left'
                             >
                                 Name
                             </th>
                             <th
-                                scope="col"
-                                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                scope='col'
+                                className='text-sm font-medium text-gray-900 px-6 py-4 text-left'
                             >
                                 Side
                             </th>
                             <th
-                                scope="col"
-                                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                scope='col'
+                                className='text-sm font-medium text-gray-900 px-6 py-4 text-left'
                             >
                                 Description
                             </th>
                             <th
-                                scope="col"
-                                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                scope='col'
+                                className='text-sm font-medium text-gray-900 px-6 py-4 text-left'
                             >
                                 To do
                             </th>
                             <th
-                                scope="col"
-                                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                scope='col'
+                                className='text-sm font-medium text-gray-900 px-6 py-4 text-left'
                             >
                                 Transportation
                             </th>
                             <th
-                                scope="col"
-                                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                scope='col'
+                                className='text-sm font-medium text-gray-900 px-6 py-4 text-left'
                             >
                                 Weather
                             </th>
                             <th
-                                scope="col"
-                                className="text-sm font-medium text-gray-900 px-6 py-4 text-left w-96"
+                                scope='col'
+                                className='text-sm font-medium text-gray-900 px-6 py-4 text-left w-96'
                             >
                                 Image File
                             </th>
                         </tr>
                         {/* them region */}
-                        <tr className="bg-gray-100 border-b">
-                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"></td>
-                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <tr className='bg-gray-100 border-b'>
+                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'></td>
+                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                                 <input
-                                    type="text"
+                                    className='block max-w-[80px]'
+                                    type='text'
                                     value={name1}
                                     onChange={(e) => setName1(e.target.value)}
                                 ></input>
                             </td>
-                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                                 <input
-                                    type="text"
+                                    className='block max-w-[80px]'
+                                    type='text'
                                     value={side1}
                                     onChange={(e) => setSide1(e.target.value)}
                                 ></input>
                             </td>
-                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                                 <textarea
-                                    className="block w-full"
+                                    className='block max-w-[80px]'
                                     value={description1}
                                     onChange={(e) =>
                                         setDescription1(e.target.value)
                                     }
                                 ></textarea>
                             </td>
-                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                                 <textarea
-                                    className="block w-full"
+                                    className='block max-w-[80px]'
                                     value={todo1}
-                                    onChange={(e) =>
-                                        setToDo1(e.target.value)
-                                    }
+                                    onChange={(e) => setToDo1(e.target.value)}
                                 ></textarea>
                             </td>
-                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                                 <textarea
-                                    className="block w-full"
+                                    className='block max-w-[80px]'
                                     value={transportation1}
                                     onChange={(e) =>
                                         setTransportation1(e.target.value)
                                     }
                                 ></textarea>
                             </td>
-                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                                 <textarea
-                                    className="block w-full"
+                                    className='block max-w-[80px]'
                                     value={weather1}
                                     onChange={(e) =>
                                         setWeather1(e.target.value)
                                     }
                                 ></textarea>
                             </td>
-                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                                 <input
-                                    type="file"
-                                    className="block w-full"
+                                    type='file'
                                     onChange={(e) => {
                                         handleFile1(e);
                                     }}
                                 ></input>
                             </td>
-                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                                 <div>
                                     <button
                                         onClick={handleSaveNew}
-                                        className="text-black hover:underline active:font-bold"
+                                        className='text-black hover:underline active:font-bold'
                                     >
                                         save
                                     </button>
@@ -302,35 +312,38 @@ function Regions({ objectName }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {objects.length !== 0 &&
-                            objects?.map((object) => (
+                        {reversedObjects.length !== 0 &&
+                            reversedObjects?.map((object) => (
                                 <>
+                                    {/* edit */}
                                     {edit && object.id === id ? (
-                                        <tr className="bg-gray-100 border-b">
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        <tr className='bg-gray-100 border-b '>
+                                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap block max-w-[80px]'>
                                                 {object.id}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                                                 <input
-                                                    type="text"
+                                                    className=' block max-w-[80px]'
+                                                    type='text'
                                                     value={name}
                                                     onChange={(e) =>
                                                         setName(e.target.value)
                                                     }
                                                 ></input>
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                                                 <input
-                                                    type="text"
+                                                    className=' block max-w-[80px]'
+                                                    type='text'
                                                     value={side}
                                                     onChange={(e) =>
                                                         setSide(e.target.value)
                                                     }
                                                 ></input>
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                                                 <textarea
-                                                    className="block w-full"
+                                                    className='block max-w-[160px]'
                                                     value={description}
                                                     onChange={(e) =>
                                                         setDescription(
@@ -339,20 +352,18 @@ function Regions({ objectName }) {
                                                     }
                                                 ></textarea>
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                                                 <textarea
-                                                    className="block w-full"
+                                                    className='block max-w-[160px]'
                                                     value={todo}
                                                     onChange={(e) =>
-                                                        setToDo(
-                                                            e.target.value
-                                                        )
+                                                        setToDo(e.target.value)
                                                     }
                                                 ></textarea>
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                                                 <textarea
-                                                    className="block w-full"
+                                                    className=' block max-w-[160px]'
                                                     value={transportation}
                                                     onChange={(e) =>
                                                         setTransportation(
@@ -361,9 +372,9 @@ function Regions({ objectName }) {
                                                     }
                                                 ></textarea>
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                                                 <textarea
-                                                    className="block w-full"
+                                                    className=' block max-w-[160px]'
                                                     value={weather}
                                                     onChange={(e) =>
                                                         setWeather(
@@ -372,20 +383,19 @@ function Regions({ objectName }) {
                                                     }
                                                 ></textarea>
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                                                 <input
-                                                    type="file"
-                                                    className="block w-full"
+                                                    type='file'
                                                     onChange={(e) => {
                                                         handleFile(e);
                                                     }}
                                                 ></input>
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                                                 <div>
                                                     <button
                                                         onClick={handleSave}
-                                                        className="text-black hover:underline active:font-bold"
+                                                        className='text-black hover:underline active:font-bold'
                                                     >
                                                         save
                                                     </button>
@@ -393,49 +403,51 @@ function Regions({ objectName }) {
                                             </td>
                                         </tr>
                                     ) : (
-                                        <tr className="bg-gray-100 border-b">
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                        <tr className='bg-gray-100 border-b'>
+                                            <td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 max-w-[80px] truncate'>
                                                 {object.id}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap max-w-[80px] truncate'>
                                                 {object.name}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap max-w-[80px] truncate'>
                                                 {object.side}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap max-w-[160px] truncate'>
                                                 {object.description}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap min-w-[200px]">
+                                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap max-w-[160px] truncate'>
                                                 {object.todo}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap max-w-[160px] truncate'>
                                                 {object.transportation}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap max-w-[160px] truncate'>
                                                 {object.weather}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                                                 <input
-                                                    type="file"
-                                                    className="block w-full min-w-[200px]"
+                                                    type='file'
+                                                    className='block w-full min-w-[200px]'
                                                 ></input>
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                                                 <div>
                                                     <button
                                                         onClick={() =>
                                                             handleEdit(object)
                                                         }
-                                                        className="text-black hover:underline active:font-bold"
+                                                        className='text-black hover:underline active:font-bold'
                                                     >
                                                         Edit
                                                     </button>
                                                     <button
                                                         onClick={() =>
-                                                            handleDelete(object.id)
+                                                            handleDelete(
+                                                                object.id
+                                                            )
                                                         }
-                                                        className="text-black hover:underline active:font-bold"
+                                                        className='text-black hover:underline active:font-bold'
                                                     >
                                                         Delete
                                                     </button>

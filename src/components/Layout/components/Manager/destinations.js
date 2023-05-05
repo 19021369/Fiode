@@ -12,7 +12,7 @@ function Destinations({ objectName }) {
     const [deslong, setDeslong] = useState();
     const [objects, setObjects] = useState([]);
     const [count, forceCount] = useReducer((x) => x + 1, 1);
-
+    const [count1, forceCount1] = useReducer((x) => x + 1, 1);
     const [name1, setName1] = useState();
     const [location1, setLocation1] = useState();
     const [introduce1, setIntroduce1] = useState();
@@ -23,6 +23,10 @@ function Destinations({ objectName }) {
     const [files2, setFiles2] = useState([]);
     const [files3, setFiles3] = useState([]);
     const [files4, setFiles4] = useState([]);
+    const [files01, setFiles01] = useState([]);
+    const [files02, setFiles02] = useState([]);
+    const [files03, setFiles03] = useState([]);
+    const [files04, setFiles04] = useState([]);
     const [reducerComment, forceUpdateComment] = useReducer((x) => x + 1, 0);
     const [reducerComment1, forceUpdateComment1] = useReducer((x) => x + 1, 0);
     const [reducerdes, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -47,7 +51,7 @@ function Destinations({ objectName }) {
                 });
         };
         fetchData();
-    }, [objectName, reducerComment, reducerComment1, reducerdes]);
+    }, [objectName, reducerComment, reducerComment1, reducerdes, forceCount1]);
 
     const handleEdit = (object) => {
         setEdit(true);
@@ -60,22 +64,48 @@ function Destinations({ objectName }) {
         setDeslong(object.deslong);
     };
 
+    var handleFile = (e) => {
+        var newFile1 = new File([e.target.files[0]], `${toSlug(name)}1.jpg`);
+        setFiles01(newFile1);
+        var newFile2 = new File([e.target.files[1]], `${toSlug(name)}2.jpg`);
+        setFiles02(newFile2);
+        var newFile3 = new File([e.target.files[2]], `${toSlug(name)}3.jpg`);
+        setFiles03(newFile3);
+        var newFile4 = new File([e.target.files[3]], `${toSlug(name)}4.jpg`);
+        setFiles04(newFile4);
+        forceCount1();
+    };
+console.log("Khi doi ten thi buoc phải them file");
     const handleSave = async () => {
-        let data = JSON.stringify({
+        const obj = {
             name: `${name}`,
             location: `${location}`,
             introduce: `${introduce}`,
             content: `${content}`,
             deslat: `${deslat}`,
             deslong: `${deslong}`,
-        });
+        };
 
+        const json = JSON.stringify(obj);
+        const blob = new Blob([json], {
+            type: 'application/json',
+        });
+        const data = new FormData();
+        data.append('destination', blob);
+        console.log(files01);
+        if(files01 !== undefined) {
+            data.append('image', files01);
+            data.append('image', files02);
+            data.append('image', files03);
+            data.append('image', files04);
+        }
+        
         let config = {
             method: 'put',
             maxBodyLength: Infinity,
             url: `http://localhost:8080/api/destinations/${id}`,
             headers: {
-                'Content-type': 'application/json',
+                'Content-type': 'multipart/form-data',
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
             data: data,
@@ -89,18 +119,18 @@ function Destinations({ objectName }) {
                 console.log(error);
             });
 
-        setId('');
-        setName('');
-        setLocation('');
-        setIntroduce('');
-        setContent('');
-        setDeslat('');
-        setDeslong('');
+        setId();
+        setName();
+        setLocation();
+        setIntroduce();
+        setContent();
+        setDeslat();
+        setDeslong();
+        setFiles01();
+        setFiles02();
+        setFiles03();
+        setFiles04();
         setEdit(false);
-        // setFiles1([]);
-        // setFiles2([]);
-        // setFiles3([]);
-        // setFiles4([]);
         forceUpdateComment();
     };
 
@@ -156,18 +186,19 @@ function Destinations({ objectName }) {
 
         forceUpdateComment1();
     };
-
-    var handleFile = (e) => {
-        var newFile1 = new File([e.target.value[0]], `${toSlug(name1)}1.jpg`);
+    // newfile
+    var handleFile1 = (e) => {
+        var newFile1 = new File([e.target.files[0]], `${toSlug(name1)}1.jpg`);
         setFiles1(newFile1);
-        var newFile2 = new File([e.target.value[1]], `${toSlug(name1)}2.jpg`);
+        var newFile2 = new File([e.target.files[1]], `${toSlug(name1)}2.jpg`);
         setFiles2(newFile2);
-        var newFile3 = new File([e.target.value[2]], `${toSlug(name1)}3.jpg`);
+        var newFile3 = new File([e.target.files[2]], `${toSlug(name1)}3.jpg`);
         setFiles3(newFile3);
-        var newFile4 = new File([e.target.value[3]], `${toSlug(name1)}4.jpg`);
+        var newFile4 = new File([e.target.files[3]], `${toSlug(name1)}4.jpg`);
         setFiles4(newFile4);
         forceCount();
     };
+
     const handleDelete = async (id) => {
         var config = {
             method: 'delete',
@@ -188,10 +219,12 @@ function Destinations({ objectName }) {
         forceUpdate();
     };
 
+    var reversedObjects = objects?.map(item => item)?.reverse();
     return (
         <div>
             {objectName === 'destinations' && (
-                <table className="min-w-full">
+            <>
+                <table>
                     <thead className="bg-white border-b">
                         <tr>
                             <th
@@ -248,7 +281,7 @@ function Destinations({ objectName }) {
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"></td>
                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                 <input
-                                    className="block w-full h-full"
+                                    className="block max-w-[160px]"
                                     type="text"
                                     value={name1}
                                     onChange={(e) => setName1(e.target.value)}
@@ -256,7 +289,7 @@ function Destinations({ objectName }) {
                             </td>
                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                 <input
-                                    className="block w-full h-full"
+                                    className="block max-w-[160px]"
                                     type="text"
                                     value={location1}
                                     onChange={(e) =>
@@ -266,7 +299,7 @@ function Destinations({ objectName }) {
                             </td>
                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                 <input
-                                    className="block w-full h-full"
+                                    className="block max-w-[160px]"
                                     type="text"
                                     value={introduce1}
                                     onChange={(e) =>
@@ -276,7 +309,7 @@ function Destinations({ objectName }) {
                             </td>
                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                 <textarea
-                                    className="block w-full h-full"
+                                    className="block max-w-[160px]"
                                     value={content1}
                                     onChange={(e) =>
                                         setContent1(e.target.value)
@@ -285,7 +318,7 @@ function Destinations({ objectName }) {
                             </td>
                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                 <input
-                                    className="block w-full h-full"
+                                    className="block max-w-[80px]"
                                     type="text"
                                     value={deslat1}
                                     onChange={(e) => setDeslat1(e.target.value)}
@@ -293,7 +326,7 @@ function Destinations({ objectName }) {
                             </td>
                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                 <input
-                                    className="block w-full h-full"
+                                    className="block max-w-[80px]"
                                     type="text"
                                     value={deslong1}
                                     onChange={(e) =>
@@ -307,7 +340,7 @@ function Destinations({ objectName }) {
                                     type="file"
                                     className="block w-full"
                                     onChange={(e) => {
-                                        handleFile(e);
+                                        handleFile1(e);
                                     }}
                                 ></input>
                             </td>
@@ -323,9 +356,10 @@ function Destinations({ objectName }) {
                             </td>
                         </tr>
                     </thead>
+                
                     <tbody>
-                        {objects.length !== 0 &&
-                            objects?.map((object) => (
+                        {reversedObjects.length !== 0 &&
+                            reversedObjects?.map((object) => (
                                 <>
                                     {edit && object.id === id ? (
                                         <tr
@@ -398,7 +432,13 @@ function Destinations({ objectName }) {
                                                     }
                                                 ></input>
                                             </td>
-
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                <input
+                                                multiple="multiple"
+                                                onChange={e => handleFile(e)}
+                                                    type="file"
+                                                ></input>
+                                            </td>
                                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                                 <div>
                                                     <button
@@ -415,25 +455,25 @@ function Destinations({ objectName }) {
                                             key={object.id}
                                             className="bg-gray-100 border-b"
                                         >
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 max-w-[160px] truncate">
                                                 {object.id}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap max-w-[160px] truncate">
                                                 {object.name}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap max-w-[160px] truncate">
                                                 {object.location}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap max-w-[160px] truncate">
                                                 {object.introduce}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap max-w-[160px] truncate">
                                                 {object.content}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap max-w-[80px] truncate">
                                                 {object.deslat}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap max-w-[80px] truncate">
                                                 {object.deslong}
                                             </td>
                                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
@@ -470,6 +510,7 @@ function Destinations({ objectName }) {
                             ))}
                     </tbody>
                 </table>
+            </>
             )}
         </div>
     );

@@ -21,7 +21,8 @@ function toSlug(str) {
      
         // xóa phần dư - ở đầu & cuối
         str = str.replace(/^-+|-+$/g, '');
-     
+        
+        str = str.replace('-', '');
         // return
         return str;
     }

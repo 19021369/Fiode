@@ -39,6 +39,7 @@
   .icon {
     @apply text-2xl cursor-pointer
   }
+
 }
 
 .ql-container.ql-snow {
@@ -53,3 +54,9 @@
   background-color: #e3e3e3;
   border-radius: 10px;
 }
+
+.leaflet-container {
+  height: 344px;
+  width: 100%;
+}
+@import url("leaflet/dist/leaflet.css")

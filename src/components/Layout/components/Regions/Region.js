@@ -55,7 +55,7 @@ function Region() {
                     <h1 id="section1" className="pt-4">
                         North
                     </h1>
-                    <p>
+                    <p className='font-sans'>
                         Du lịch miền Bắc Việt Nam là điểm đến hấp dẫn với những
                         dấu ấn riêng biệt. Miền Bắc là nơi hội tụ đầy đủ những
                         tinh túy của đất trời với thiên nhiên hùng vĩ. Mẹ thiên
@@ -92,7 +92,7 @@ function Region() {
                     <h1 id="section2" className="pt-4">
                         Midwest
                     </h1>
-                    <p>
+                    <p className='font-sans'>
                         Du lịch miền Trung đang nổi lên như một điểm sáng trên
                         bản đồ du lịch toàn cầu, đã nhận được nhiều danh hiệu
                         hàng đầu của cộng đồng du lịch quốc tế. Điển hình như
@@ -110,9 +110,9 @@ function Region() {
                     {loading2 ? (
                         <div className="text-center text-5xl">Loading...</div>
                     ) : (
-                        <div className=" grid sm:grid-cols-2 lg:grid-cols-3 gap-4 py-8 px-4">
+                        <div className="grid grid-cols-3 gap-4 py-8 px-4">
                             {pages2?.map((page) => (
-                                <Card key={page?.id} name={page?.name} />
+                                <Card key={page?.id} {...page} />
                             ))}
                         </div>
                     )}
@@ -127,7 +127,7 @@ function Region() {
                     <h1 id="section3" className="pt-4">
                         South
                     </h1>
-                    <p>
+                    <p className='font-sans'>
                         Miền Nam luôn luôn nổi tiếng về những địa điểm du lịch
                         lý tưởng. Miền Nam có những vùng giáp đường biển trải
                         dài nổi tiếng về du lịch biển, có vùng thì có hệ thống
@@ -152,9 +152,9 @@ function Region() {
                     {loading3 ? (
                         <div className="text-center text-5xl">Loading...</div>
                     ) : (
-                        <div className=" grid sm:grid-cols-2 lg:grid-cols-3 gap-4 py-8 px-4">
+                        <div className="grid grid-cols-3 gap-4 py-8 px-4">
                             {pages3?.map((page) => (
-                                <Card key={page?.id} name={page?.name} />
+                                <Card key={page?.id} {...page} />
                             ))}
                         </div>
                     )}

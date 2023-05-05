@@ -1,24 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios, * as others from 'axios';
-import { useParams } from 'react-router-dom';
 import toSlug from '../toSlug';
 
-function CarouselDestination() {
-    const [locations, setLocations] = useState([]);
-    const { regionName } = useParams();
-    useEffect(() => {
-        const fetchData = async () => {
-            await axios
-                .get(`http://localhost:8080/api/regions/location?location=${regionName}`)
-                .then(
-                  (result) => setLocations(result.data)
-
-                ).catch((err) =>
-                {console.log(err);})
-        }
-        fetchData()
-    },[]);
-
+function CarouselDestination({locations}) {
     const maxScrollWidth = useRef(0);
     const [currentIndex, setCurrentIndex] = useState(0);
     const carousel = useRef(null);
@@ -74,7 +58,6 @@ function CarouselDestination() {
                     <button
                         onClick={movePrev}
                         className='bg-red-600 rounded-none hover:bg-red-900/75 text-white w-10 h-full text-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300'
-                        disabled={isDisabled('prev')}
                     >
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
@@ -94,9 +77,7 @@ function CarouselDestination() {
                     </button>
                     <button
                         onClick={moveNext}
-                        className='bg-red-600 rounded-none hover:bg-blue-900/75 text-white w-10 h-full text-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300'
-                        disabled={isDisabled('next')}
-                    >
+                        className='bg-red-600 rounded-none hover:bg-blue-900/75 text-white w-10 h-full text-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300'                    >
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
                             className='h-12 w-20 -ml-5'
@@ -118,26 +99,29 @@ function CarouselDestination() {
                     ref={carousel}
                     className='carousel-container relative flex gap-1 overflow-hidden scroll-smooth snap-x snap-mandatory touch-pan-x z-0'
                 >
-                    {(locations.length > 0) && locations?.map((location, index) => (
-                        <div
-                            key={index}
-                            className='carousel-item text-center relative w-100 h-64 snap-start'
-                        >
-                            <a
-                                className='h-full w-full aspect-square block bg-origin-padding bg-left-top bg-cover bg-no-repeat z-0'
-                                href={`http://localhost:3000/destinations/${location.name}`}
+                    {locations?.length > 0 &&
+                        locations?.map((location, index) => (
+                            <div
+                                key={index}
+                                className='carousel-item text-center relative w-100 h-64 snap-start'
                             >
-                                <img
-                                    className='w-full h-full object-cover filter brightness-100 hover:brightness-50 aspect-square'
-                                    src={`http://localhost:8080/fileSystem/${toSlug(location.name)}1.jpg`}
-                                    alt={location.name}
-                                />
-                                <h2 className='absolute bottom-0 left-0 bg-gray-900 bg-opacity-50 w-full text-white text-lg'>
-                                    {location.name}
-                                </h2>
-                            </a>
-                        </div>
-                    ))}
+                                <a
+                                    className='h-full w-full aspect-square block bg-origin-padding bg-left-top bg-cover bg-no-repeat z-0'
+                                    href={`http://localhost:3000/destinations/${location.name}`}
+                                >
+                                    <img
+                                        className='w-full h-full object-cover filter brightness-100 hover:brightness-50 aspect-square'
+                                        src={`http://localhost:8080/fileSystem/${toSlug(
+                                            location.name
+                                        )}1.jpg`}
+                                        alt={location.name}
+                                    />
+                                    <h2 className='absolute bottom-0 left-0 bg-gray-900 bg-opacity-50 w-full text-white text-lg'>
+                                        {location.name}
+                                    </h2>
+                                </a>
+                            </div>
+                        ))}
                 </div>
             </div>
         </div>

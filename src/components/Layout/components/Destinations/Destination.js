@@ -1,11 +1,10 @@
 import React from 'react';
 import SelectsCard from './Select';
-import PaginationButton from './PaginationButton';
 import useDataFetcher from './useDataFetcher';
 import videoplayback from '~/assets/videoplayback.mp4';
 
 function Destination() {
-    const { loading, pages, totalPages, currentPage, setCurrentPage } =
+    const { loading,pages } =
     useDataFetcher();
 
     return (
@@ -34,11 +33,6 @@ function Destination() {
                             ))}
                         </div>
                     )}
-                    <PaginationButton
-                        totalPages={totalPages}
-                        currentPage={currentPage}
-                        setCurrentPage={setCurrentPage}
-                    />
                 </div>
             </div>
         </div>

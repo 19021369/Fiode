@@ -28,6 +28,8 @@ function Blogs({ objectName }) {
         fetchData();
     }, [objectName]);
     const handleDelete = () => {};
+    var reversedObjects = objects?.map(item => item)?.reverse();
+
     return (
         <div>
             {objectName === 'posts' && (
@@ -79,7 +81,7 @@ function Blogs({ objectName }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {objects?.length !== null && objects?.map((object) => (
+                        {reversedObjects?.length !== null && reversedObjects?.map((object) => (
                         <tr className="bg-gray-100 border-b">
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                 {object.id}

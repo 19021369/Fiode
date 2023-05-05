@@ -1,12 +1,17 @@
 import React,{ useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import thuyenVid from '~/assets/thuyen.mp4';
+import { useNavigate } from 'react-router-dom';
 
 
 function Hero() {
-
+    const Navigate = useNavigate();
     const [searchResult, setSearchResult] = useState('')
-
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            Navigate(`/searchresults/${searchResult}`);
+        }
+    }
     return (
         <div className="Hero w-full h-screen relative z-0">
             <video
@@ -27,6 +32,7 @@ function Hero() {
                     
                         <input
                             value={searchResult}
+                            onKeyDown={handleKeyDown}
                             onChange={e => setSearchResult(e.target.value)}
                             className="bg-transparent w-11/12 font-[Poppins]"
                             type="text"

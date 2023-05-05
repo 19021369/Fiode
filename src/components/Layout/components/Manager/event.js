@@ -43,7 +43,6 @@ function Events({ objectName }) {
         };
         fetchData();
     }, [objectName, reducerComment, reducerComment1, reducerdes]);
-
     const handleEdit = (object) => {
         setEdit(true);
         setId(object.id);
@@ -53,7 +52,6 @@ function Events({ objectName }) {
         setMonth(object.month);
         setContent(object.content);
     };
-
     const handleSave = async () => {
         let data = JSON.stringify({
             name: `${name}`,
@@ -102,7 +100,7 @@ function Events({ objectName }) {
         });
         const data = new FormData();
         data.append('event', blob);
-        data.append('image', files);
+        data.append('file', files);
 
         let config = {
             method: 'post',
@@ -130,12 +128,11 @@ function Events({ objectName }) {
         // setWeather1('');
         forceUpdateComment1();
     };
-
     var handleFile = (e) => {
-        var newFile = new File([e.target.value[0]], `${toSlug(name)}.jpg`);
-        setFiles([...files, newFile]);
+        var newFile = new File([e.target.files[0]], `${toSlug(name1)}.jpg`);
+        console.log(newFile);
+        setFiles(newFile);
     };
-
     const handleDelete = async (id) => {var config = {
         method: 'delete',
         url: `http://localhost:8080/api/events/${id}`,
@@ -153,6 +150,7 @@ function Events({ objectName }) {
             console.log(error);
         });
     forceUpdate();};
+    var reversedObjects = objects?.map(item => item)?.reverse();
     return (
         <div>
             {objectName === 'events' && (
@@ -208,6 +206,7 @@ function Events({ objectName }) {
                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"></td>
                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                 <input
+                                className="block max-w-[80px]"
                                     type="text"
                                     value={name1}
                                     onChange={(e) => setName1(e.target.value)}
@@ -215,6 +214,7 @@ function Events({ objectName }) {
                             </td>
                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                 <input
+                                className="block max-w-[80px]"
                                     type="text"
                                     value={timeStart1}
                                     onChange={(e) =>
@@ -224,7 +224,7 @@ function Events({ objectName }) {
                             </td>
                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                 <textarea
-                                    className="block w-full"
+                                    className="block max-w-[80px]"
                                     value={timeEnd1}
                                     onChange={(e) =>
                                         setTimeEnd1(e.target.value)
@@ -233,14 +233,14 @@ function Events({ objectName }) {
                             </td>
                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                 <textarea
-                                    className="block w-full"
+                                    className="block max-w-[40px]"
                                     value={month1}
                                     onChange={(e) => setMonth1(e.target.value)}
                                 ></textarea>
                             </td>
                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                 <textarea
-                                    className="block w-full"
+                                    className="block max-w-[160px]"
                                     value={content1}
                                     onChange={(e) =>
                                         setContent1(e.target.value)
@@ -269,8 +269,8 @@ function Events({ objectName }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {objects.length !== 0 &&
-                            objects?.map((object) => (
+                        {reversedObjects.length !== 0 &&
+                            reversedObjects?.map((object) => (
                                 <>
                                     {edit && object.id === id ? (
                                         <tr className="bg-gray-100 border-b">
@@ -348,28 +348,28 @@ function Events({ objectName }) {
                                         </tr>
                                     ) : (
                                         <tr className="bg-gray-100 border-b">
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 max-w-[40px]">
                                                 {object.id}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap max-w-[80px] truncate">
                                                 {object.name}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                {object.timeStart}
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap max-w-[40px] truncate">
+                                                {object.timestart}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                {object.timeEnd}
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap max-w-[40px] truncate">
+                                                {object.timeend}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap max-w-[40px] truncate">
                                                 {object.month}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap max-w-[160px] truncate">
                                                 {object.content}
                                             </td>
                                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                                 <input
                                                     type="file"
-                                                    className="block w-full min-w-[200px]"
+                                                    className="block w-full"
                                                 ></input>
                                             </td>
                                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">

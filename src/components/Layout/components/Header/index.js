@@ -1,10 +1,14 @@
 import { Menu, Transition } from '@headlessui/react';
-import { Fragment, useEffect, useRef, useState } from 'react';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
-
+import { Fragment, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 function Header() {
     const [searchArea, setSearchArea] = useState('');
-
+    const Navigate = useNavigate();
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            Navigate(`/searchresults/${searchArea}`);
+        }
+      };
     return (
         <nav className="flex justify-between items-center h-15 px-4 z-10 w-full bg-gray-300">
             <a href="/">
@@ -52,6 +56,7 @@ function Header() {
                         <input
                             value={searchArea}
                             onChange={(e) => setSearchArea(e.target.value)}
+                            onKeyDown={handleKeyDown}
                             type="text"
                             placeholder="Search"
                             className="w-full py-2 pl-12 pr-4 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
@@ -147,7 +152,7 @@ function Header() {
                                         )}
                                         <Menu.Item>
                                             {({ active }) => (
-                                                <a
+                                                <button
                                                     onClick={() => {
                                                         localStorage.removeItem(
                                                             'token'
@@ -158,10 +163,8 @@ function Header() {
                                                         );
                                                         localStorage.removeItem(
                                                             'user'
-                                                        );
-                                                        window.location.reload(
-                                                            false
-                                                        );
+                                                        );                                                       
+                                                        Navigate('/');
                                                     }}
                                                     className={`${
                                                         active
@@ -170,7 +173,7 @@ function Header() {
                                                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                                 >
                                                     Log out
-                                                </a>
+                                                </button>
                                             )}
                                         </Menu.Item>
                                     </>

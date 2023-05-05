@@ -4,9 +4,10 @@ import event from '~/assets/festivalsevents.jpg';
 import Contents from './Content';
 
 function FestivalNEvent() {
-    const [month, setMonth] = useState('apr');
+    const [month, setMonth] = useState('jan');
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         const fetchData = async () => {
             var config = {
@@ -30,7 +31,6 @@ function FestivalNEvent() {
         };
         fetchData()
     }, [month])
-    console.log(events);
     return (
         <div>
             <div className='relative h-full w-full'>
@@ -286,7 +286,7 @@ function FestivalNEvent() {
             <strong className="text-red-800">{month?.toUpperCase()}</strong>
             <div>2023</div>
             </div>
-            {loading ? (<div className='text-center text-3xl'>
+            {loading ? (<div className='text-center text-3xl h-[198.5px]'>
                                 Không có sự kiện nào diễn ra trong tháng này!
                             </div>) : (<Contents events={events} month={month} />)}
             

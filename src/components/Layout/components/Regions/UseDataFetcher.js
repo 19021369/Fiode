@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
 const useDataFetcher = (side) => {
-    var totalPages = 22;
+    var totalPages = 2;
     const [loading, setLoading] = useState(true);
     const [pages, setPages] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);

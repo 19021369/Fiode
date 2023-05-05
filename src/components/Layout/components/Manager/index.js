@@ -54,13 +54,12 @@ function ManagerPage() {
                         </li>
                     </ul>
                 </div>
-                <div className="max-w-[1240px] mx-auto items-center">
+                <div className="max-w-[1240px] mx-auto items-center max-h-[500px] overflow-y-scroll overflow-x-scroll">
                     <div className="flex flex-col">
-                        <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+                        <div className="sm:mx-0.5 lg:mx-0.5">
                             <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                                 <div className="overflow-hidden">
                                     {objectName === 'destinations' && <Destinations objectName={objectName} />}
-                                    
                                     {objectName === 'regions' && <Regions objectName={objectName} />}
                                     {objectName === 'events' && <Events objectName={objectName} />}
                                     {objectName === 'posts' && <Blogs objectName={objectName} />}

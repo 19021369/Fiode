@@ -203,7 +203,7 @@ function Blog() {
                                                 <p className="text-gray-500">
                                                     Created by {} 21/3/2023
                                                 </p>
-                                                <h1 className="post_title text-xl left-4 uppercase">
+                                                <h1 className="post_title text-xl left-4 uppercase break-words">
                                                     {userpost.title}
                                                 </h1>
                                                 <p className="text-gray-500">
@@ -259,14 +259,11 @@ function Blog() {
 
                                 <div className="content m-8 mt-2 h-48 relative">
                                     <p className="text-gray-500">
-                                        Created by {} 21/3/2023
+                                        Created at {userpost.createdAt?.slice(0, 10)}
                                     </p>
                                     <h1 className="post_title text-xl left-4 uppercase">
                                         {userpost.title}
                                     </h1>
-                                    <p className="text-gray-500">
-                                        {userpost.description}
-                                    </p>
                                     <a
                                         href={`/blogs/${userpost.title}/${userpost.id}`}
                                         className="text-yellow-500 absolute bottom-0 font-bold"
